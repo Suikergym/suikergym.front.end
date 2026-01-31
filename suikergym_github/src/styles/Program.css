@@ -1,0 +1,178 @@
+@import url(https://fonts.googleapis.com/css?family=Poppins:wght@400;500;600;700&display=swap);
+@import url(https://fonts.googleapis.com/css?family=Allerta+Stencil&family=Poppins:ital,wght@400;500;600;700&display=swap);
+@import url(https://fonts.googleapis.com/css?family=Lato:700);
+
+.card-container{
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 25px;
+}
+
+.card{
+  border: 1px solid hsl(0, 0%, 80%);
+  border: 10px;
+  box-shadow: 5px 5px 5px hsl(0, 0%, 0%, 0.1);
+  margin: 10px;
+  text-align: center;
+  max-width: 250px;
+  display: inline-block;
+  transition: transform 0.6s ease;
+}
+
+/* ribbon start */
+
+.program-box {
+  position: relative;
+  max-width: 600px;
+  width: 100%;
+  height: 520px;
+  padding-bottom: 20px;
+  background: #fff;
+  box-shadow: 0 0 15px rgba(0,0,0,.1);
+}
+
+/* common */
+.ribbon {
+  width: 150px;
+  height: 150px;
+  overflow: hidden;
+  position: absolute;
+}
+.ribbon::before,
+.ribbon::after {
+  position: absolute;
+  z-index: 0;
+  content: '';
+  display: block;
+  border: 5px solid #2980b9;
+}
+.ribbon span {
+  position: absolute;
+  display: block;
+  width: 225px;
+  padding: 15px 0;
+  background-color: #3498db;
+  box-shadow: 0 5px 10px rgba(0,0,0,.1);
+  color: #fff;
+  font: 700 18px/1 'Lato', sans-serif;
+  text-shadow: 0 1px 1px rgba(0,0,0,.2);
+  /* text-transform: uppercase; */
+  text-align: center;
+}
+
+/* top right*/
+.ribbon-top-right {
+  top: -10px;
+  right: -10px;
+}
+.ribbon-top-right::before,
+.ribbon-top-right::after {
+  border-top-color: transparent;
+  border-right-color: transparent;
+}
+.ribbon-top-right::before {
+  top: 0;
+  left: 35px;
+}
+.ribbon-top-right::after {
+  bottom: 35px;
+  right: 0;
+}
+.ribbon-top-right span {
+  left: 10px;
+  top: 37px;
+  transform: rotate(45deg);
+  font-size: 12px;
+}
+
+.ribbon-text{
+  margin: -15px 0 0 -15px;
+}
+
+/* ribbon end */
+
+.button-box{
+  margin-top:1em;
+}
+
+.card:hover{
+  transform: translateY(-20px);
+}
+
+.card .card-image{
+  max-width: 100%;
+  max-height: 12em;
+  height: auto;
+  object-fit: cover;
+  margin-bottom: 10px;
+  object-position: center center;
+}
+
+.card .wrapper{
+  background-color: #A1E38E;
+  margin: 0;
+  padding: 1em 2em;
+  color: #fff;
+  font-family: "Allerta Stencil";
+  text-transform: uppercase;
+  font-size: 1.3em;
+  letter-spacing: 1px;
+  height: 6em;
+}
+
+.card .wrapper-title{
+  margin-top: 1.5em;
+}
+
+.card .wrapper p{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card .card-title{
+  font-family: Arial, sans-serif;
+  font-size: 24px;
+  margin: 10px 0 10px 0;
+  color: hsl(0, 0%, 20%);
+}
+
+.card .program-info{
+  padding-top: 30px;
+  height: 16em;
+
+}
+.card .card-text{
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  text-align: start;
+  margin: 0;
+  color: hsl(0, 0%, 30%);
+  margin-bottom: 10px;
+  list-style-type:disc;
+  margin-left: 2em;
+}
+
+.card .card-text::before{
+  content: '✓';
+  margin-right: 0.5em;
+  color: green;
+}
+
+.card .card-button{
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 600;
+  font-size: 15;
+  color: white;
+  background-color: #3498DB;
+  padding: 10px;
+  margin-top: 15px;
+  border: none;
+  text-align: center;
+}
+
+.card-button:hover{
+  cursor: pointer;
+}

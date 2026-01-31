@@ -1,0 +1,25 @@
+:root{
+  --prime-background: repeating-linear-gradient(45deg, #7eb4e2, #7eb4e2 15px, #f69ec4 0, #f69ec4 30px);
+}
+.footer {
+  width: 100%;
+  height: 100px;
+  background: var(--prime-background-clr);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 10px;
+}
+
+.socialMedia svg {
+  color: black;
+  /* margin: 20px; */
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.footer p {
+  color: black;
+  font-size: 1rem;
+}

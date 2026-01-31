@@ -1,0 +1,142 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+:root{
+  --btn-backgrond-clr: #E5BE01;
+}
+
+.home-wrapper {
+  width: auto;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: left;
+  flex-direction: column;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.home-wrapper::after{
+  content:'';
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../assets/Suikergym_background.jpeg') no-repeat center center;
+  position: absolute;
+  background-size: cover;
+  /* left: 0px; */
+  width:100%;
+  height:100vh;
+  opacity: 0.6;
+  z-index: -1;
+}
+
+.home-container {
+  width: 50%;
+  margin-left: 3rem;
+  margin-top: -10em;
+}
+
+.home-container h1 {
+  /* display: flex; */
+  /* justify-content: center; */
+  align-items: center;
+  font-size: 5rem;
+  line-height: 1.5rem;
+  font-weight: 50;
+  color: #fff;
+}
+
+.home-container h3 {
+  margin-top: -1rem;
+  padding: 0;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #A1E38E;
+  /* text-align: center; */
+}
+
+.home-container p {
+  padding: 0;
+  /* text-align: center; */
+  font-size: 1.5rem;
+  font-weight: lighter;
+  color: #fff;
+}
+
+.home-button{
+  display: flex;
+  flex-direction: row;
+}
+
+.home-button a{ 
+  /* margin-right: 2.5rem; */
+  padding: 0 20px 0 0;
+}
+
+.home-container button {
+  color: black;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  justify-content: center;
+  background-color: var(--btn-backgrond-clr);
+  height: 2.5rem;
+  width: 11rem;
+  color: #fff;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: 0.3s ease-in-out;
+}
+
+.home-container button:hover {
+  background-color: #A1E38E;
+  color: #fff;
+  cursor: pointer;
+  transform: translateY(-0.5rem);
+}
+
+@media only screen and (max-width: 650px) {
+  .home {
+    justify-content: center;
+    align-items: center;
+  }
+
+  .home-container {
+    margin: auto;
+    position: absolute;
+    border-radius: 10px;
+    padding: 10px;
+    width: 80%;
+    display: flex;
+    /* justify-content: center; */
+    /* align-items: center; */
+    flex-direction: column;
+    color: white;
+  }
+
+  .home-container h1 {
+    font-size: 40px;
+    height: 30px;
+    color: white;
+  }
+
+  .home-container p {
+    font-size: 25px;
+    color: white;
+  }
+
+  .home-container button {
+    /* background-color: white; */
+    /* color: #121619; */
+    margin-bottom: 30px;
+  }
+
+  .home-button{
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .home-container button:hover {
+    background-color: rgb(225, 225, 225);
+    color: #121619;
+  }
+}

@@ -1,0 +1,199 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+:root{
+  --font: "Poppins", "sans-serif";
+}
+
+.about-container{
+  margin: 0 0 2em 0;
+}
+
+.text-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-flow: column;
+  margin-top: 1rem;
+}
+
+.text-container h1{
+  font-size: 25px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-family: var(--font);
+
+}
+
+.text-container p{
+  text-align: center;
+  font-size: 18px;
+  margin-bottom: 20px;
+  margin-left: 10%;
+  margin-right: 10%;
+  color: #333;
+  font-family: var(--font);
+}
+
+.card-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.about-left{
+  width: 25%;
+  float: left;
+}
+
+.about-right{
+  width: 75%;
+  float: right;
+}
+
+/* about me */
+.about-me-content{
+ width: 80%; 
+ align-items: center;
+ border:1px solid black;
+ font-family: var(--font);
+ font-size: 1em;
+}
+
+.about-me-content h1{
+  text-align: left;
+  margin: 10px 0 0 0;
+}
+
+/* .profile-picture{
+  float: left;
+  margin-bottom: -4px;
+  margin-right: 10px;
+} */
+.profile-picture-img{
+  justify-self: center;
+  align-self: center;
+  width: auto; 
+  max-width: 95%;
+  display: block;
+  float: left;
+}
+
+.about-me-content p{
+  width: 95%;
+  float: left;
+}
+
+/* about suikergym */
+.about-us-content{
+  width: 80%; 
+  align-items: center;
+  border:1px solid black; 
+}
+
+.about-us-content h1{
+  text-align: right;
+
+}
+
+.carousel {
+  position: relative;
+  width: 80%;
+  max-width: 600px;
+  margin: auto;
+  overflow: hidden;
+}
+
+.carousel img {
+  float: right;
+  width:  168px;
+  height: auto;
+  object-fit: cover;
+  display: block;
+  /* border-radius: 8px; */
+}
+
+/* button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  font-size: 24px;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+} */
+
+.prev {
+  left: 10px;
+}
+
+.next {
+  right: 10px;
+}
+
+.carousel-container {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.main-image img {
+  width: 100%;
+  height: auto;
+  max-height: 423px;
+  object-fit: contain;
+}
+
+.thumbnail-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.thumbnail {
+  margin: 0 5px;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.3s;
+  height: 60px;
+}
+
+.thumbnail img {
+  width: 80px;
+  height: 60px;
+  object-fit: contain;
+}
+
+.thumbnail:hover {
+  opacity: 1;
+}
+
+.thumbnail.active {
+  border: 2px solid #A1E38E;
+  opacity: 1;
+}
+
+.thumbnail img {
+  width: 80px;
+  height: 60px;
+  object-fit: cover;
+  opacity: 0.6;
+  transition: opacity 0.3s;
+}
+
+.thumbnail img.lazy-load {
+  background-color: #ddd; /* Placeholder color */
+}
+
+/* .thumbnail img.lazy-load[src=""] {
+  background-image: url('https://via.placeholder.com/80x60/ddd/ffffff?text=Loading...');
+  background-size: cover;
+} */

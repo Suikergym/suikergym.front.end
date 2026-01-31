@@ -1,0 +1,89 @@
+/* Basic reset and styling */
+/* * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+} */
+
+/* Dropdown container */
+.dropdown, .dropdown-button, .dropdown-list {
+  width: 100%; /* Make dropdown container full-width */
+  max-width: 300px; /* Limit max width for larger screens */
+  margin: 0 auto;
+}
+
+/* Button styles */
+.dropdown-button {
+  width: 100%;
+  padding: 15px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 16px;
+  text-align: center;
+}
+
+.dropdown-button:hover {
+  background-color: #45a049;
+}
+
+/* Dropdown list styles */
+.dropdown-list {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: white;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.dropdown-list li {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.dropdown-list li:hover {
+  background-color: #ddd;
+}
+
+/* Responsive - Show the dropdown list when it's open */
+.dropdown.open .dropdown-list {
+  display: block;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+  .dropdown-button {
+    font-size: 18px;
+    padding: 12px;
+  }
+
+  .dropdown-list li {
+    font-size: 16px;
+    padding: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dropdown-button {
+    font-size: 16px;
+    padding: 10px;
+  }
+
+  .dropdown-list li {
+    font-size: 14px;
+    padding: 10px;
+  }
+}
