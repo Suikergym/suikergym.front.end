@@ -10,7 +10,7 @@ resources:
 
 variables:
   # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: 'b461182b-8eb0-4b8a-b5c2-3f0facca1403'
+  dockerRegistryServiceConnection: 'ccf0f187-1b6c-41d8-8824-9863346f8180'
   imageRepository: 'suikergymsuikergymfrontend'
   containerRegistry: 'suikergymcr.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/SuikerGym.Api/Dockerfile'
