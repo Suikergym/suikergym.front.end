@@ -10,6 +10,12 @@ EXPOSE 8081
 
 # This stage is used to build the service project
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
+
+RUN apt-get update \
+    && apt-get install -y nodejs npm \
+    && rm -rf /var/lib/apt/lists/*
+
+
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["SuikerGym.Api.csproj", "."]
