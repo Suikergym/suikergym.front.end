@@ -4,33 +4,51 @@ import "../styles/Contact.css";
 import PhoneIcon from "@material-ui/icons/Phone";
 import LocationIcon from "@material-ui/icons/LocationOn";
 import EmailIcon from "@material-ui/icons/AlternateEmail";
-import AccessTime from "@material-ui/icons/AccessTime"
+import AccessTime from "@material-ui/icons/AccessTime";
+import { submitContactForm } from "../services/apiService";
 
 function Contact() {
   const [result, setResult] = React.useState("");
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    setResult("Sending....");
+
+    // Check honeypot field (petname)
     const formData = new FormData(event.target);
+    if (formData.get("petname") !== "") {
+      // This is likely a bot submission
+      return;
+    }
 
-    formData.append("access_key", "ee586f46-eabc-4e66-8ba9-c9e05773f99d");
+    setIsSubmitting(true);
+    setResult("Sending....");
 
-    const response = await fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      body: formData,
-    });
+    try {
+      // Prepare data for API
+      const contactData = {
+        goal: formData.get("goal"),
+        firstname: formData.get("firstname"),
+        lastname: formData.get("lastname"),
+        email: formData.get("email"),
+        phone: formData.get("phone"),
+        message: formData.get("message"),
+      };
 
-    const data = await response.json();
+      // Submit to our backend API
+      const response = await submitContactForm(contactData);
 
-    if (formData.get("petname") === "") {
-      if (data.success) {
-        setResult("We nemen snel contact op!");
+      if (response.success) {
+        setResult(response.message || "We nemen snel contact op!");
         event.target.reset();
       } else {
-        console.log("Error", data);
-        setResult(data.message);
+        setResult(response.message || "Er is een fout opgetreden. Probeer het later opnieuw.");
       }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      setResult("Er is een fout opgetreden. Probeer het later opnieuw.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -189,10 +207,17 @@ function Contact() {
                 <span>Wat is je doel?</span>
               </div>
               <div className="inputBox">
-                <input type="submit" name="" value="Verstuur"></input>
+                <input 
+                  type="submit" 
+                  name="" 
+                  value={isSubmitting ? "Verzenden..." : "Verstuur"}
+                  disabled={isSubmitting}
+                ></input>
               </div>
             </form>
-            <span>{result}</span>
+            <span className={result.includes("snel contact") ? "success-message" : "error-message"}>
+              {result}
+            </span>
           </div>
         </div>
       </section>

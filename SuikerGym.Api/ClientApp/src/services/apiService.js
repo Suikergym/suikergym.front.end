@@ -1,0 +1,102 @@
+// API configuration
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://localhost:7000/api';
+
+/**
+ * Submit contact form to the backend API
+ * @param {Object} formData - Contact form data
+ * @returns {Promise<Object>} - Response from the API
+ */
+export const submitContactForm = async (formData) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/contact`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        goal: formData.goal,
+        firstName: formData.firstname,
+        lastName: formData.lastname,
+        email: formData.email,
+        phone: formData.phone,
+        message: formData.message,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Er is een fout opgetreden');
+    }
+
+    return data;
+  } catch (error) {
+    console.error('Error submitting contact form:', error);
+    throw error;
+  }
+};
+
+/**
+ * Get all available programs
+ * @returns {Promise<Array>} - List of programs
+ */
+export const getAllPrograms = async () => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/programs`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch programs');
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error fetching programs:', error);
+    throw error;
+  }
+};
+
+/**
+ * Get a specific program by ID
+ * @param {string} id - Program identifier
+ * @returns {Promise<Object>} - Program details
+ */
+export const getProgramById = async (id) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/programs/${id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Program with ID ${id} not found`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error fetching program:', error);
+    throw error;
+  }
+};
+
+/**
+ * Check API health
+ * @returns {Promise<Object>} - Health status
+ */
+export const checkApiHealth = async () => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/contact/health`);
+    return await response.json();
+  } catch (error) {
+    console.error('API health check failed:', error);
+    return { status: 'unhealthy' };
+  }
+};
