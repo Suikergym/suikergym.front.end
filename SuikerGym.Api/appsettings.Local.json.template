@@ -1,0 +1,7 @@
+{
+  "MailerSend": {
+	"ApiKey": "YOUR_MAILERSEND_API_KEY_HERE"
+  },
+
+  "// Instructions": "Copy this file to appsettings.Local.json and replace YOUR_MAILERSEND_API_KEY_HERE with your actual MailerSend API key"
+}

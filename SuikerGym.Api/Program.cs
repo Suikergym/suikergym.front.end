@@ -1,10 +1,18 @@
 using SuikerGym.Api.Services;
+using SuikerGym.Api.Configuration;
 using Microsoft.AspNetCore.SpaServices.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Load appsettings.Local.json if it exists (for local secrets)
+builder.Configuration.AddJsonFile("appsettings.Local.json", optional: true, reloadOnChange: true);
+
 // Add services to the container.
 builder.Services.AddControllers();
+
+// Configure settings
+builder.Services.Configure<MailerSendSettings>(
+    builder.Configuration.GetSection(MailerSendSettings.SectionName));
 
 // Add CORS
 builder.Services.AddCors(options =>
@@ -18,9 +26,13 @@ builder.Services.AddCors(options =>
     });
 });
 
+// Register HttpClient for MailerSend
+builder.Services.AddHttpClient<IBreakfastClubService, BreakfastClubService>();
+
 // Register services
 builder.Services.AddScoped<IContactService, ContactService>();
 builder.Services.AddScoped<IProgramService, ProgramService>();
+builder.Services.AddScoped<IBreakfastClubService, BreakfastClubService>();
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
@@ -41,6 +53,7 @@ if (app.Environment.IsDevelopment())
     app.UseHttpsRedirection();
 }
 
+// Static files first
 app.UseStaticFiles();
 app.UseSpaStaticFiles();
 
@@ -49,17 +62,21 @@ app.UseCors("AllowReactApp");
 app.UseRouting();
 app.UseAuthorization();
 
+// Map API controllers
 app.MapControllers();
 
-// Configure SPA
-app.UseSpa(spa =>
+// Configure SPA - this catches all non-API routes last
+app.MapWhen(context => !context.Request.Path.StartsWithSegments("/api"), appBuilder =>
 {
-    spa.Options.SourcePath = "ClientApp";
-
-    if (app.Environment.IsDevelopment())
+    appBuilder.UseSpa(spa =>
     {
-        spa.UseProxyToSpaDevelopmentServer("http://localhost:3000");
-    }
+        spa.Options.SourcePath = "ClientApp";
+
+        if (app.Environment.IsDevelopment())
+        {
+            spa.UseProxyToSpaDevelopmentServer("http://localhost:3000");
+        }
+    });
 });
 
 app.Run();

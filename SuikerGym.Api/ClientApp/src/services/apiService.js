@@ -1,5 +1,5 @@
 // API configuration
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://localhost:7000/api';
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://localhost:7074/api';
 
 /**
  * Submit contact form to the backend API
@@ -32,6 +32,38 @@ export const submitContactForm = async (formData) => {
     return data;
   } catch (error) {
     console.error('Error submitting contact form:', error);
+    throw error;
+  }
+};
+
+/**
+ * Submit Breakfast Club registration
+ * @param {Object} formData - Registration data (name, email, phone)
+ * @returns {Promise<Object>} - Response from the API
+ */
+export const submitBreakfastClubRegistration = async (formData) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/breakfastclub/register`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Er is een fout opgetreden');
+    }
+
+    return data;
+  } catch (error) {
+    console.error('Error submitting Breakfast Club registration:', error);
     throw error;
   }
 };

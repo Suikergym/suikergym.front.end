@@ -181,6 +181,10 @@ FodyWeavers.xsd
 *.userosscache
 *.sln.docstates
 
+# Local settings with secrets (DO NOT COMMIT)
+appsettings.Local.json
+appsettings.*.local.json
+
 # Keep these files
 !ClientApp/.env.development
 !ClientApp/.env.production
