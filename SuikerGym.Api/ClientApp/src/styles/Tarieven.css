@@ -1,39 +1,58 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
-
-:root{
-  --font: "Poppins", "sans-serif";
+.programs-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  padding: 6rem 2rem 4rem;
 }
 
-.text-container{
+.text-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  flex-flow: column;
-  margin-top: 1rem;
-}
-
-.text-container h1{
-  font-size: 25px;
-  justify-content: center;
   align-items: center;
+  max-width: 800px;
+  margin: 0 auto 4rem;
   text-align: center;
-  font-family: var(--font);
-
 }
 
-.text-container p{
-  text-align: center;
-  font-size: 18px;
-  margin-bottom: 20px;
-  margin-left: 10%;
-  margin-right: 10%;
-  color: #333;
-  font-family: var(--font);
+.text-container h1 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.02em;
+}
+
+.text-container p {
+  font-size: clamp(1rem, 2vw, 1.125rem);
+  line-height: 1.8;
+  color: #475569;
+  max-width: 700px;
+  margin: 0 auto;
 }
 
 .card-container {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 20px; /* Space between cards */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+@media (max-width: 768px) {
+  .programs-container {
+    padding: 4rem 1rem 3rem;
+  }
+
+  .text-container {
+    margin-bottom: 3rem;
+  }
+
+  .card-container {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
 }

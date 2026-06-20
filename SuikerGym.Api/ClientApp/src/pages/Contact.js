@@ -157,6 +157,7 @@ function Contact() {
                   id="firstname"
                   name="firstname"
                   required="required"
+                  placeholder=" "
                 />
                 <span>Voornaam</span>
               </div>
@@ -166,6 +167,7 @@ function Contact() {
                   id="lastname"
                   name="lastname"
                   required="required"
+                  placeholder=" "
                 />
                 <span>Achternaam</span>
               </div>
@@ -186,6 +188,7 @@ function Contact() {
                   id="email"
                   name="email"
                   required="required"
+                  placeholder=" "
                 />
                 <span>Email</span>
               </div>
@@ -195,6 +198,7 @@ function Contact() {
                   id="phone"
                   name="phone"
                   required="required"
+                  placeholder=" "
                 />
                 <span>Telefoon</span>
               </div>
@@ -203,21 +207,25 @@ function Contact() {
                   id="message"
                   name="message"
                   required="required"
+                  rows="5"
+                  placeholder=" "
                 ></textarea>
                 <span>Wat is je doel?</span>
               </div>
               <div className="inputBox">
-                <input 
-                  type="submit" 
-                  name="" 
-                  value={isSubmitting ? "Verzenden..." : "Verstuur"}
+                <button 
+                  type="submit"
                   disabled={isSubmitting}
-                ></input>
+                >
+                  {isSubmitting ? "Verzenden..." : "Verstuur"}
+                </button>
               </div>
+              {result && (
+                <div className="result-message">
+                  {result}
+                </div>
+              )}
             </form>
-            <span className={result.includes("snel contact") ? "success-message" : "error-message"}>
-              {result}
-            </span>
           </div>
         </div>
       </section>

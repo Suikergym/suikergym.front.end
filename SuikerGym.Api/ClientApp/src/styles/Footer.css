@@ -1,25 +1,44 @@
-:root{
-  --prime-background: repeating-linear-gradient(45deg, #7eb4e2, #7eb4e2 15px, #f69ec4 0, #f69ec4 30px);
-}
 .footer {
   width: 100%;
-  height: 100px;
-  background: var(--prime-background-clr);
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  padding: 3rem 2rem 2rem;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  padding-top: 10px;
+  gap: 1.5rem;
+  border-top: 1px solid rgba(59, 130, 246, 0.2);
+  margin-top: auto;
+}
+
+.socialMedia {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
 }
 
 .socialMedia svg {
-  color: black;
-  /* margin: 20px; */
-  font-size: 30px;
+  color: #e2e8f0;
+  font-size: 28px;
   cursor: pointer;
+  transition: all var(--transition-base);
+  padding: 0.75rem;
+  background: rgba(59, 130, 246, 0.1);
+  border-radius: 50%;
+  border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+.socialMedia svg:hover {
+  color: #3b82f6;
+  transform: translateY(-5px) scale(1.1);
+  background: rgba(59, 130, 246, 0.2);
+  box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
 }
 
 .footer p {
-  color: black;
-  font-size: 1rem;
+  color: #94a3b8;
+  font-size: 0.9rem;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  margin: 0;
 }
