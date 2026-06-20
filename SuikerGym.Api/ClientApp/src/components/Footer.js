@@ -7,8 +7,12 @@ function Footer() {
   return (
     <div className="footer">
       <div className="socialMedia">
-        <InstagramIcon/>
-        <FacebookIcon/>
+        <a href="https://www.instagram.com/suikergym/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+          <InstagramIcon />
+        </a>
+        <a href="https://www.facebook.com/suikergym/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+          <FacebookIcon />
+        </a>
       </div>
       <p> &copy; {(new Date().getFullYear())} SuikerGym.nl </p>
     </div>

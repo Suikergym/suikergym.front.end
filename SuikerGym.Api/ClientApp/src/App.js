@@ -7,6 +7,7 @@ import Home from "./pages/Home";
 import Contact from "./pages/Contact";
 import Tarieven from "./pages/Tarieven";
 import About from "./pages/About";
+import BreakfastClub from "./pages/BreakfastClub";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import ReactGA from "react-ga4";
 
@@ -32,6 +33,7 @@ function App() {
           <Route exact path="/contact" element={<Contact />} />
           <Route exact path="/aanbod" element={<Tarieven />} />
           <Route exact path="/about" element={<About />} />
+          <Route exact path="/breakfast-club" element={<BreakfastClub />} />
         </Routes>
         <Footer />
       </Router>

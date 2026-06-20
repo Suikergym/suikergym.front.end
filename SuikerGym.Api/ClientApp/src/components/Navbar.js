@@ -46,13 +46,20 @@ function Navbar() {
           </li>
           <li>
             <NavLink
+              to="/breakfast-club" onClick={handleShowNavbar}
+              className={({ isActive }) => (isActive ? "active" : "none")}
+            >
+              Breakfast Club
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
               to="/contact" onClick={handleShowNavbar}
               className={({ isActive }) => (isActive ? "active" : "none")}
             >
               Contact
             </NavLink>
           </li>
-
           <li>
             <NavLink
               to="/about" onClick={handleShowNavbar}

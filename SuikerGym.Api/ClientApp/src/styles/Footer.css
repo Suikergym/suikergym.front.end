@@ -17,6 +17,13 @@
   align-items: center;
 }
 
+.socialMedia a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
 .socialMedia svg {
   color: #e2e8f0;
   font-size: 28px;
@@ -28,7 +35,7 @@
   border: 1px solid rgba(59, 130, 246, 0.2);
 }
 
-.socialMedia svg:hover {
+.socialMedia a:hover svg {
   color: #3b82f6;
   transform: translateY(-5px) scale(1.1);
   background: rgba(59, 130, 246, 0.2);
