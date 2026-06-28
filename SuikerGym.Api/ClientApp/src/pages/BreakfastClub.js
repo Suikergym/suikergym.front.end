@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet";
-import { submitBreakfastClubRegistration } from "../services/apiService";
 import "../styles/BreakfastClub.css";
-import suikerElze from "../assets/suikerElze.jpg";
+import BreakfastBox from "../assets/breakfast-box.png";
 
 function BreakfastClub() {
   const [formData, setFormData] = useState({
@@ -26,14 +25,12 @@ function BreakfastClub() {
     setResult("Verzenden...");
 
     try {
-      const response = await submitBreakfastClubRegistration(formData);
+      // TODO: Integrate with your backend API
+      // For now, just simulate a successful submission
+      await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      if (response.success) {
-        setResult(response.message || "Bedankt voor je interesse! Je ontvangt een bevestiging per email.");
-        setFormData({ name: "", email: "", phone: "" });
-      } else {
-        setResult(response.message || "Er is een fout opgetreden. Probeer het later opnieuw.");
-      }
+      setResult("Bedankt voor je interesse! We nemen snel contact met je op.");
+      setFormData({ name: "", email: "", phone: "" });
     } catch (error) {
       console.error("Error submitting form:", error);
       setResult("Er is een fout opgetreden. Probeer het later opnieuw.");
@@ -46,111 +43,282 @@ function BreakfastClub() {
     <div className="breakfast-club-page">
       <Helmet>
         <meta charSet="utf-8" />
-        <title>Breakfast Club Groningen | Trainen & Ontbijten voor Werk</title>
+        <title>Breakfast Club Groningen | Sporten vóór Werk + Ontbijt</title>
         <meta
           name="description"
           content="Train 45 minuten, geniet van een gezond ontbijt en begin je werkdag vol energie. Breakfast Club bij Suikergym in Hoogkerk."
         />
       </Helmet>
-
       {/* HERO */}
       <section className="breakfast-hero">
         <div className="breakfast-hero-content">
           <div className="breakfast-badge">Voor drukke Groningers</div>
 
-          <h1>Train. Ontbijt. Begin je dag sterk.</h1>
+          <h1>Sport, ontbijt en zit vóór 08:00 op je werk.</h1>
 
           <p className="hero-tagline">
-            Een energieke groepstraining inclusief gezond ontbijt. Voor mensen
-            die fitter willen worden zonder dat sporten hun hele dag kost.
+            Speciaal voor drukke ouders en professionals die fitter willen
+            worden zonder dat sporten hun avond kost.
           </p>
 
           <div className="hero-benefits">
             <span>✓ 45 minuten trainen</span>
-            <span>✓ Inclusief ontbijt</span>
-            <span>✓ Voor werk klaar</span>
-            <span>✓ Maximaal 8 deelnemers</span>
+            <span>✓ Eiwitrijk ontbijt inbegrepen</span>
+            <span>✓ Voor 08:00 klaar</span>
+            <span>✓ Maximaal 10 deelnemers</span>
           </div>
 
           <a href="#aanmelden" className="hero-button">
-            Vraag een gratis proeftraining aan
+            Reserveer jouw gratis proeftraining
           </a>
         </div>
 
         <div className="hero-image">
-          <img
-            src={suikerElze}
-            alt="Elze Kuiper Personal Trainer"
-          />
+          <img src={BreakfastBox} alt="Breakfast Club ontbijtbox" />
         </div>
       </section>
 
-      {/* INFO / VOORDELEN */}
-      <section className="breakfast-info">
-        <div className="info-container">
-          <div className="info-card">
-            <div className="info-icon">🏋️</div>
-            <h3>Professionele Training</h3>
-            <p>
-              45 minuten trainen onder begeleiding van een ervaren personal
-              trainer.
-            </p>
+      {/* HET PROBLEEM */}
+      <section className="problem-section">
+        <div className="problem-container">
+          <h2>Waarom lukt sporten vaak niet?</h2>
+
+          <p className="problem-intro">
+            De meeste mensen weten dat bewegen belangrijk is. Het probleem is
+            niet motivatie. Het probleem is tijd.
+          </p>
+
+          <div className="problem-grid">
+            <div className="problem-card">
+              <div className="problem-icon">👨‍👩‍👧‍👦</div>
+              <h3>Gezin</h3>
+              <p>
+                Kinderen naar school brengen, koken en het huishouden laten
+                weinig ruimte over voor jezelf.
+              </p>
+            </div>
+
+            <div className="problem-card">
+              <div className="problem-icon">💼</div>
+              <h3>Werk</h3>
+              <p>
+                Na een lange werkdag ontbreekt vaak de energie om nog naar de
+                sportschool te gaan.
+              </p>
+            </div>
+
+            <div className="problem-card">
+              <div className="problem-icon">⏰</div>
+              <h3>Tijdgebrek</h3>
+              <p>
+                Sporten wordt uitgesteld tot morgen. En morgen wordt volgende
+                week.
+              </p>
+            </div>
           </div>
 
-          <div className="info-card">
-            <div className="info-icon">🥗</div>
-            <h3>Eiwitrijk Ontbijt</h3>
-            <p>
-              Na je workout een voedzaam ontbijt dat je energie geeft voor de
-              dag.
-            </p>
-          </div>
+          <div className="problem-solution">
+            <h3>Daarom bestaat de Breakfast Club</h3>
 
-          <div className="info-card">
-            <div className="info-icon">⏰</div>
-            <h3>Voor Werk Klaar</h3>
             <p>
-              Trainen en ontbijten voor 8:00 zodat je fris je werkdag begint.
+              Train voordat de dag begint. Om 08:00 heb je al gesport, ontbeten
+              en een overwinning binnen. Geen avondstress, geen uitstelgedrag en
+              geen schuldgevoel.
             </p>
           </div>
         </div>
       </section>
 
-      {/* DETAILS */}
-      <section className="breakfast-details">
-        <div className="details-container">
-          <h2>Praktische informatie</h2>
+      {/* HOE WERKT HET */}
+      <section className="morning-timeline">
+        <h2>Om 08:00 heb je al gesport én ontbeten</h2>
 
-          <div className="details-grid">
-            <div className="detail-item">
-              <span className="detail-label">Wanneer</span>
-              <span className="detail-value">Dinsdag & Donderdag</span>
+        <div className="timeline-container">
+          <div className="timeline-step">
+            <div className="timeline-time">07:00</div>
+            <div className="timeline-icon">🏋️</div>
+            <h3>Training</h3>
+            <p>45 minuten kracht en conditie.</p>
+          </div>
+
+          <div className="timeline-arrow">→</div>
+
+          <div className="timeline-step">
+            <div className="timeline-time">07:45</div>
+            <div className="timeline-icon">🥣</div>
+            <h3>Ontbijt</h3>
+            <p>Een vers en eiwitrijk ontbijt voor optimaal herstel.</p>
+          </div>
+
+          <div className="timeline-arrow">→</div>
+
+          <div className="timeline-step">
+            <div className="timeline-time">08:00</div>
+            <div className="timeline-icon">💼</div>
+            <h3>Naar werk</h3>
+            <p>Vol energie aan je werkdag beginnen.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* ONTBIJT */}
+      <section className="food-section">
+        <div className="container">
+          <p className="diet-options">
+            🌱 Vegan opties beschikbaar • 🥛 Lactosevrij mogelijk • 🌾
+            Glutenvrije opties op aanvraag
+          </p>
+
+          <div className="section-header">
+            <h2>Kies jouw favoriete ontbijt</h2>
+            <p>
+              Geen stress over ontbijt of meal prep. Na iedere training staat er
+              een vers ontbijt voor je klaar. Kies jouw favoriet bij je
+              inschrijving en wijzig je keuze wanneer je daar behoefte aan hebt.
+            </p>
+          </div>
+          <div className="breakfast-grid">
+            <div className="food-card">
+              <div className="food-tag">Meest gekozen</div>
+              <img
+                src="/images/kwark-granola.jpg"
+                alt="Kwark met granola"
+                className="food-image"
+              />
+              <h3>Kwark met granola</h3>
+              <p>Magere kwark met huisgemaakte granola en blauwe bessen.</p>
+
+              <div className="macros">
+                <div className="macro">
+                  <strong>25g</strong>
+                  <span>Eiwit</span>
+                </div>
+
+                <div className="macro">
+                  <strong>35g</strong>
+                  <span>Koolhydraten</span>
+                </div>
+
+                <div className="macro">
+                  <strong>8g</strong>
+                  <span>Vet</span>
+                </div>
+
+                <div className="macro">
+                  <strong>320</strong>
+                  <span>Kcal</span>
+                </div>
+              </div>
             </div>
 
-            <div className="detail-item">
-              <span className="detail-label">Training</span>
-              <span className="detail-value">06:30 - 07:15</span>
+            <div className="food-card">
+              <img
+                src="/images/overnight-oats.jpg"
+                alt="Overnight oats"
+                className="food-image"
+              />
+              <h3>Overnight oats</h3>
+              <p>Romige overnight oats met banaan, chiazaad en vers fruit.</p>
+
+              <div className="macros">
+                <div className="macro">
+                  <strong>25g</strong>
+                  <span>Eiwit</span>
+                </div>
+
+                <div className="macro">
+                  <strong>35g</strong>
+                  <span>Koolhydraten</span>
+                </div>
+
+                <div className="macro">
+                  <strong>8g</strong>
+                  <span>Vet</span>
+                </div>
+
+                <div className="macro">
+                  <strong>320</strong>
+                  <span>Kcal</span>
+                </div>
+              </div>
             </div>
 
-            <div className="detail-item">
-              <span className="detail-label">Ontbijt</span>
-              <span className="detail-value">07:15 - 08:00</span>
+            <div className="food-card">
+              <img
+                src="/images/pancake-bowl.jpg"
+                alt="Pancake bowl"
+                className="food-image"
+              />
+              <h3>Pancake bowl</h3>
+              <p>Eiwitrijke pancakes met yoghurt en vers fruit.</p>
+
+              <div className="macros">
+                <div className="macro">
+                  <strong>25g</strong>
+                  <span>Eiwit</span>
+                </div>
+
+                <div className="macro">
+                  <strong>35g</strong>
+                  <span>Koolhydraten</span>
+                </div>
+
+                <div className="macro">
+                  <strong>8g</strong>
+                  <span>Vet</span>
+                </div>
+
+                <div className="macro">
+                  <strong>320</strong>
+                  <span>Kcal</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="food-benefit">
+            <h3>Waarom een ontbijt na je training?</h3>
+
+            <p>
+              Door direct na je training te ontbijten ondersteun je je
+              spierherstel, blijf je langer verzadigd en begin je de dag met
+              meer energie.
+            </p>
+          </div>
+          <div className="smoothie-section">
+            <h3>🥤 Maak je ontbijt compleet (+ €5)</h3>
+            <p>Kies iedere training uit één van deze smaken:</p>
+
+            <div className="smoothie-grid">
+              <div className="smoothie-card">
+                <h4>🍓 Aardbei-Banaan Boost</h4>
+                <p>±24g eiwit • ±230 kcal</p>
+              </div>
+
+              <div className="smoothie-card">
+                <h4>🥭 Mango-Tropical Protein</h4>
+                <p>±23g eiwit • ±220 kcal</p>
+              </div>
+
+              <div className="smoothie-card">
+                <h4>🍫 Chocolate Banana Recovery</h4>
+                <p>±27g eiwit • ±250 kcal</p>
+              </div>
             </div>
 
-            <div className="detail-item">
-              <span className="detail-label">Groepsgrootte</span>
-              <span className="detail-value">Maximaal 8 deelnemers</span>
+            <div className="smoothie-bonus">
+              🎉 Na iedere 10 bezoeken ontvang je een gratis proteïnesmoothie
+              naar keuze.
             </div>
+          </div>
+          <div className="food-note">
+            <p>🌱 Vegan en lactosevrije varianten beschikbaar.</p>
 
-            <div className="detail-item">
-              <span className="detail-label">Niveau</span>
-              <span className="detail-value">Alle niveaus welkom</span>
-            </div>
+            <p>
+              🌾 Glutenvrije opties mogelijk. Omdat de ontbijtjes thuis worden
+              bereid, kunnen sporen van gluten niet volledig worden uitgesloten.
+            </p>
 
-            <div className="detail-item">
-              <span className="detail-label">Locatie</span>
-              <span className="detail-value">Suikergym Hoogkerk</span>
-            </div>
+            <small>*Macro's zijn indicatief en kunnen licht afwijken.</small>
           </div>
         </div>
       </section>
@@ -159,7 +327,7 @@ function BreakfastClub() {
       <section className="coach-section">
         <div className="coach-content">
           <div className="coach-image">
-            <img src={suikerElze} alt="Elze Kuiper" />
+            <img src="/images/elze-kuiper.jpg" alt="Elze Kuiper" />
           </div>
 
           <div className="coach-text">
@@ -185,6 +353,112 @@ function BreakfastClub() {
         </div>
       </section>
 
+      {/* DETAILS */}
+      <section className="breakfast-details">
+        <div className="details-container">
+          <h2>Praktische informatie</h2>
+
+          <div className="details-grid">
+            <div className="detail-item">
+              <span className="detail-label">Wanneer</span>
+              <span className="detail-value">Maandag, Woensdag & Vrijdag</span>
+            </div>
+
+            <div className="detail-item">
+              <span className="detail-label">Training</span>
+              <span className="detail-value">07:00 - 07:45</span>
+            </div>
+
+            <div className="detail-item">
+              <span className="detail-label">Douchen & Omkleden</span>
+              <span className="detail-value">07:45 - 08:00</span>
+            </div>
+            <div className="detail-item">
+              <span className="detail-label">Ontbijt</span>
+              <span className="detail-value">08:00</span>
+            </div>
+
+            <div className="detail-item">
+              <span className="detail-label">Groepsgrootte</span>
+              <span className="detail-value">Maximaal 10 deelnemers</span>
+            </div>
+
+            <div className="detail-item">
+              <span className="detail-label">Niveau</span>
+              <span className="detail-value">Alle niveaus welkom</span>
+            </div>
+
+            <div className="detail-item">
+              <span className="detail-label">Locatie</span>
+              <span className="detail-value">Suikergym Hoogkerk</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* PRICING */}
+      <section className="pricing-section">
+        <div className="pricing-banner">
+          <div className="pricing-badge">🎉 Oprichtingsleden-aanbod</div>
+
+          <h2>Vanaf €59 per maand</h2>
+
+          <p>
+            Exclusieve introductieprijs voor de eerste 10 deelnemers. Geldig
+            gedurende de eerste 3 maanden.
+          </p>
+        </div>
+
+        <div className="pricing-table-wrapper">
+          <table className="pricing-table">
+            <thead>
+              <tr>
+                <th>Abonnement</th>
+                <th>Introductieprijs</th>
+                <th>Reguliere prijs</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td>1x per week</td>
+                <td className="intro-price">€59</td>
+                <td className="regular-price">€79</td>
+              </tr>
+
+              <tr>
+                <td>2x per week</td>
+                <td className="intro-price">€89</td>
+                <td className="regular-price">€139</td>
+              </tr>
+
+              <tr>
+                <td>3x per week</td>
+                <td className="intro-price">€109</td>
+                <td className="regular-price">€179</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div className="pricing-benefits">
+          <p>✓ Inclusief ontbijt</p>
+          <p>✓ Gratis proeftraining</p>
+          <p>✓ Maximaal 10 deelnemers per groep</p>
+          <p>✓ Na 3 maanden beslis je zelf of je wilt verlengen</p>
+        </div>
+
+        <div className="pricing-cta">
+          <a href="#aanmelden" className="hero-button">
+            Claim jouw introductieplek
+          </a>
+        </div>
+
+        <p className="pricing-spots">
+          Slechts 10 introductieplekken beschikbaar.
+        </p>
+      </section>
+
       {/* TESTIMONIALS */}
       <section className="testimonial-section">
         <h2>Wat deelnemers zeggen</h2>
@@ -204,23 +478,6 @@ function BreakfastClub() {
             <p>"Perfecte combinatie van trainen en ontbijt."</p>
             <strong>Bas</strong>
           </div>
-        </div>
-      </section>
-
-      {/* PRICING */}
-      <section className="pricing-section">
-        <h2>Investering</h2>
-
-        <div className="pricing-card">
-          <div className="price">€25</div>
-          <p>per sessie inclusief ontbijt</p>
-
-          <ul>
-            <li>45 minuten training</li>
-            <li>Gezond ontbijt</li>
-            <li>Kleine groep (max 8)</li>
-            <li>Persoonlijke begeleiding</li>
-          </ul>
         </div>
       </section>
 
@@ -255,6 +512,116 @@ function BreakfastClub() {
           </div>
 
           <form className="registration-form" onSubmit={handleSubmit}>
+            {/* Ontbijtkeuze */}
+            <div className="form-group">
+              <select
+                name="breakfastChoice"
+                value={formData.breakfastChoice}
+                onChange={handleChange}
+                required
+              >
+                <option value="">Kies je ontbijt</option>
+                <option value="kwark_granola">Kwark met granola</option>
+                <option value="overnight_oats">Overnight oats</option>
+                <option value="pancake_bowl">Pancake bowl</option>
+                <option value="don't_know">Ik weet het nog niet</option>
+              </select>
+              <label>Ontbijtkeuze</label>
+            </div>
+
+            {/* Smoothie keuze */}
+            <div className="form-group">
+              <select
+                name="smoothieChoice"
+                value={formData.smoothieChoice}
+                onChange={handleChange}
+                required
+              >
+                <option value="">Kies je smoothie</option>
+                <option value="aardbei_banaan_boost">
+                  Aardbei-banaan boost
+                </option>
+                <option value="mango_tropical_protein">
+                  Mango tropical protein
+                </option>
+                <option value="chocolate_banana_recovery">
+                  Chocolate banana recovery
+                </option>
+              </select>
+              <label>Smoothiekeuze</label>
+            </div>
+
+            {/* Voedingswensen */}
+            {/* <div className="form-group">
+              <label className="group-title">Voedingswensen</label>
+              <div className="option-cards">
+                <label
+                  className={`option-card ${formData.dietPreference === "standaard" ? "active" : ""}`}
+                >
+                  <input
+                    type="radio"
+                    name="dietPreference"
+                    value="standaard"
+                    onChange={handleChange}
+                    checked={formData.dietPreference === "standaard"}
+                  />
+                  <span>Standaard</span>
+                </label>
+
+                <label
+                  className={`option-card ${formData.dietPreference === "vegan" ? "active" : ""}`}
+                >
+                  <input
+                    type="radio"
+                    name="dietPreference"
+                    value="vegan"
+                    onChange={handleChange}
+                    checked={formData.dietPreference === "vegan"}
+                  />
+                  <span>Vegan</span>
+                </label>
+
+                <label
+                  className={`option-card ${formData.dietPreference === "lactosevrij" ? "active" : ""}`}
+                >
+                  <input
+                    type="radio"
+                    name="dietPreference"
+                    value="lactosevrij"
+                    onChange={handleChange}
+                    checked={formData.dietPreference === "lactosevrij"}
+                  />
+                  <span>Lactosevrij</span>
+                </label>
+
+                <label
+                  className={`option-card ${formData.dietPreference === "vegan_lactosevrij" ? "active" : ""}`}
+                >
+                  <input
+                    type="radio"
+                    name="dietPreference"
+                    value="vegan_lactosevrij"
+                    onChange={handleChange}
+                    checked={formData.dietPreference === "vegan_lactosevrij"}
+                  />
+                  <span>Vegan & lactosevrij</span>
+                </label>
+              </div>
+            </div> */}
+
+            {/* Allergieën / opmerkingen */}
+            <div className="form-group">
+              <textarea
+                name="allergies"
+                value={formData.allergies}
+                onChange={handleChange}
+                placeholder=" "
+                rows="4"
+              />
+              <label>Allergieën / dieetwensen / opmerkingen</label>
+            </div>
+
+            {/* Naam */}
             <div className="form-group">
               <input
                 type="text"
@@ -267,6 +634,7 @@ function BreakfastClub() {
               <label>Volledige naam</label>
             </div>
 
+            {/* Email */}
             <div className="form-group">
               <input
                 type="email"
@@ -279,6 +647,7 @@ function BreakfastClub() {
               <label>Email</label>
             </div>
 
+            {/* Telefoon */}
             <div className="form-group">
               <input
                 type="tel"
@@ -291,6 +660,7 @@ function BreakfastClub() {
               <label>Telefoonnummer</label>
             </div>
 
+            {/* Submit */}
             <button type="submit" disabled={isSubmitting}>
               {isSubmitting ? "Verzenden..." : "Aanmelden"}
             </button>
