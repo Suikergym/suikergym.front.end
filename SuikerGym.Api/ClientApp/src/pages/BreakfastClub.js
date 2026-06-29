@@ -2,6 +2,11 @@ import React, { useState } from "react";
 import { Helmet } from "react-helmet";
 import "../styles/BreakfastClub.css";
 import BreakfastBox from "../assets/breakfast-box.png";
+import PancakeBowl from "../assets/pancake-bowl.jpg";
+import OvernightOats from "../assets/overnight-oats.jpg";
+import QuarkGranola from "../assets/quark-granola.jpg";
+import ElzeKuiper from "../assets/ElzeKuiper.jpeg";
+import { FaWhatsapp } from "react-icons/fa";
 
 function BreakfastClub() {
   const [formData, setFormData] = useState({
@@ -49,6 +54,22 @@ function BreakfastClub() {
           content="Train 45 minuten, geniet van een gezond ontbijt en begin je werkdag vol energie. Breakfast Club bij Suikergym in Hoogkerk."
         />
       </Helmet>
+
+      {/* LAUNCH BANNER */}
+      <div className="launch-banner">
+        <div className="launch-banner-content">
+          <span className="launch-badge">🎉 Nieuwe groep</span>
+
+          <p>
+            De Breakfast Club start op <strong>maandag 31 augustus</strong>. Er
+            zijn slechts <strong>10 introductieplekken</strong> beschikbaar.
+          </p>
+
+          <a href="#aanmelden" className="launch-button">
+            Reserveer jouw plek
+          </a>
+        </div>
+      </div>
       {/* HERO */}
       <section className="breakfast-hero">
         <div className="breakfast-hero-content">
@@ -181,7 +202,7 @@ function BreakfastClub() {
             <div className="food-card">
               <div className="food-tag">Meest gekozen</div>
               <img
-                src="/images/kwark-granola.jpg"
+                src={QuarkGranola}
                 alt="Kwark met granola"
                 className="food-image"
               />
@@ -213,7 +234,7 @@ function BreakfastClub() {
 
             <div className="food-card">
               <img
-                src="/images/overnight-oats.jpg"
+                src={OvernightOats}
                 alt="Overnight oats"
                 className="food-image"
               />
@@ -245,7 +266,7 @@ function BreakfastClub() {
 
             <div className="food-card">
               <img
-                src="/images/pancake-bowl.jpg"
+                src={PancakeBowl}
                 alt="Pancake bowl"
                 className="food-image"
               />
@@ -327,7 +348,7 @@ function BreakfastClub() {
       <section className="coach-section">
         <div className="coach-content">
           <div className="coach-image">
-            <img src="/images/elze-kuiper.jpg" alt="Elze Kuiper" />
+            <img src={ElzeKuiper} alt="Elze Kuiper" />
           </div>
 
           <div className="coach-text">
@@ -669,6 +690,15 @@ function BreakfastClub() {
           </form>
         </div>
       </section>
+      {/*WHATSAPP BUTTON */}
+      <a
+      href="https://wa.me/31613015220?text=Hoi%20Elze,%20ik%20heb%20een%20vraag%20over%20de%20Breakfast%20Club."
+      target="_blank"
+      rel="noopener noreferrer"
+      className="whatsapp-button"
+      aria-label="Stuur een WhatsApp bericht"
+    ><FaWhatsapp />
+  </a>
     </div>
   );
 }
