@@ -85,3 +85,36 @@ html {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--accent-cyan);
 }
+
+.mobile-cta {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-cta {
+    display: flex;
+
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    padding: 1.25rem;
+
+    background: var(--gradient-accent);
+    color: white;
+
+    justify-content: center;
+    align-items: center;
+
+    font-weight: 700;
+    text-decoration: none;
+
+    z-index: 998;
+    box-shadow: 0 -10px 40px rgba(0,0,0,0.2);
+  }
+
+  .mobile-cta:active {
+    transform: scale(0.99);
+  }
+}

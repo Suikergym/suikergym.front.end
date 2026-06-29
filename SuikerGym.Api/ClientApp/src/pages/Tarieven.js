@@ -2,10 +2,12 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import "../styles/Tarieven.css";
 import Program from "../components/Program.js";
+import ScrollToTop from "../components/ScrollToTop.js";
 
 function Tarieven() {
   return (
     <div className="programs-container">
+      <ScrollToTop />
       <Helmet>
         <meta charSet="utf-8" />
         <title>Suikergym - Tarieven</title>

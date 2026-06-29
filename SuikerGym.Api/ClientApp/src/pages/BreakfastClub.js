@@ -6,7 +6,8 @@ import PancakeBowl from "../assets/pancake-bowl.jpg";
 import OvernightOats from "../assets/overnight-oats.jpg";
 import QuarkGranola from "../assets/quark-granola.jpg";
 import ElzeKuiper from "../assets/ElzeKuiper.jpeg";
-import { FaWhatsapp } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import LaunchBanner from "../components/LaunchBanner";
 
 function BreakfastClub() {
   const [formData, setFormData] = useState({
@@ -56,20 +57,7 @@ function BreakfastClub() {
       </Helmet>
 
       {/* LAUNCH BANNER */}
-      <div className="launch-banner">
-        <div className="launch-banner-content">
-          <span className="launch-badge">🎉 Nieuwe groep</span>
-
-          <p>
-            De Breakfast Club start op <strong>maandag 31 augustus</strong>. Er
-            zijn slechts <strong>10 introductieplekken</strong> beschikbaar.
-          </p>
-
-          <a href="#aanmelden" className="launch-button">
-            Reserveer jouw plek
-          </a>
-        </div>
-      </div>
+      <LaunchBanner />
       {/* HERO */}
       <section className="breakfast-hero">
         <div className="breakfast-hero-content">
@@ -690,15 +678,9 @@ function BreakfastClub() {
           </form>
         </div>
       </section>
-      {/*WHATSAPP BUTTON */}
-      <a
-      href="https://wa.me/31613015220?text=Hoi%20Elze,%20ik%20heb%20een%20vraag%20over%20de%20Breakfast%20Club."
-      target="_blank"
-      rel="noopener noreferrer"
-      className="whatsapp-button"
-      aria-label="Stuur een WhatsApp bericht"
-    ><FaWhatsapp />
-  </a>
+      <Link to="/contact" className="mobile-cta">
+  Meld je aan
+</Link>
     </div>
   );
 }

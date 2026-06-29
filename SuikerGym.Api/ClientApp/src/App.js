@@ -10,13 +10,17 @@ import About from "./pages/About";
 import BreakfastClub from "./pages/BreakfastClub";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import ReactGA from "react-ga4";
+import WhatsAppFab from "./components/WhatsAppFab";
+
+
 
 ReactGA.initialize("G-1R5HPWE4BJ");
 
-ReactGA.send({ 
-  hitType: "pageview", 
+ReactGA.send({
+  hitType: "pageview",
   page: window.location.pathname,
-  title: "Suikergym" });
+  title: "Suikergym",
+});
 
 function App() {
   return (
@@ -37,6 +41,7 @@ function App() {
         </Routes>
         <Footer />
       </Router>
+      <WhatsAppFab />
     </div>
   );
 }
