@@ -5,7 +5,7 @@
 .launch-banner {
   background: linear-gradient(
     135deg,
-    #ec4899 0%,
+    #facc15 -43%,
     #db2777 100%
   );
   color: white;
@@ -21,8 +21,8 @@
   background:
     radial-gradient(
       circle at top right,
-      rgba(255,255,255,0.15),
-      transparent 40%
+      rgba(255, 255, 255, 0.08),
+      transparent 45%
     );
   pointer-events: none;
 }
@@ -52,6 +52,7 @@
   margin: 0;
   font-size: 1rem;
   font-weight: 500;
+  color: white
 }
 
 .launch-banner strong {

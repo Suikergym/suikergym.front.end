@@ -1,5 +1,6 @@
 
 import { HashLink } from "react-router-hash-link";
+import "../styles/LaunchBanner.css";
 
 export default function LaunchBanner({ buttonLink = "#aanmelden" }) {
   return (
