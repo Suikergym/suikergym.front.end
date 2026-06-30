@@ -5,7 +5,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Contact from "./pages/Contact";
-import Tarieven from "./pages/Tarieven";
+import PersonalTraining from "./pages/PersonalTraining";
 import About from "./pages/About";
 import BreakfastClub from "./pages/BreakfastClub";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
@@ -28,17 +28,16 @@ function App() {
       <Helmet>
         <meta charSet="utf-8" />
         <title>Suikergym - trainen is voor iedereen</title>
-        {/* <link rel="canonical" href="http://mysite.com/example" /> */}
       </Helmet>
       <Router>
         <Navbar />
         <Routes>
-          <Route exact path="/" element={<Home />} />
-          <Route exact path="/contact" element={<Contact />} />
-          <Route exact path="/aanbod" element={<Tarieven />} />
-          <Route exact path="/about" element={<About />} />
-          <Route exact path="/breakfast-club" element={<BreakfastClub />} />
-        </Routes>
+  <Route path="/" element={<Home />} />
+  <Route path="/breakfast-club" element={<BreakfastClub />} />
+  <Route path="/personal-training" element={<PersonalTraining />} />
+  <Route path="/over-suigergym" element={<About />} />
+  <Route path="/kennismaken" element={<Contact />} />
+</Routes>
         <Footer />
       </Router>
       <WhatsAppFab />

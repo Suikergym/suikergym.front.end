@@ -38,10 +38,10 @@ function Navbar() {
           </li>
           <li>
             <NavLink
-              to="/aanbod" onClick={handleShowNavbar}
+              to="/personal-training" onClick={handleShowNavbar}
               className={({ isActive }) => (isActive ? "active" : "none")}
             >
-              Tarieven
+              Personal Training
             </NavLink>
           </li>
           <li>
