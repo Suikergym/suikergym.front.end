@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import "../styles/BreakfastClub.css";
 import BreakfastBox from "../assets/breakfast-box.png";
 import PancakeBowl from "../assets/pancake-bowl.jpg";
@@ -8,6 +8,7 @@ import QuarkGranola from "../assets/quark-granola.jpg";
 import ElzeKuiper from "../assets/ElzeKuiper.jpeg";
 import { Link } from "react-router-dom";
 import LaunchBanner from "../components/LaunchBanner";
+import { submitBreakfastClubRegistration } from "../services/apiService";
 
 function BreakfastClub() {
   const [formData, setFormData] = useState({
@@ -31,12 +32,14 @@ function BreakfastClub() {
     setResult("Verzenden...");
 
     try {
-      // TODO: Integrate with your backend API
-      // For now, just simulate a successful submission
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      const response = await submitBreakfastClubRegistration(formData);
 
-      setResult("Bedankt voor je interesse! We nemen snel contact met je op.");
-      setFormData({ name: "", email: "", phone: "" });
+      if (response.success) {
+        setResult(response.message || "Bedankt voor je interesse! We nemen snel contact met je op.");
+        setFormData({ name: "", email: "", phone: "" });
+      } else {
+        setResult(response.message || "Er is een fout opgetreden. Probeer het later opnieuw.");
+      }
     } catch (error) {
       console.error("Error submitting form:", error);
       setResult("Er is een fout opgetreden. Probeer het later opnieuw.");
