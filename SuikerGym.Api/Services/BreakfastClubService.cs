@@ -52,17 +52,17 @@ public class BreakfastClubService : IBreakfastClubService
 			}
 
 			// Send confirmation email to the user
-			var confirmationSent = await SendConfirmationEmailAsync(request);
+			var (confirmationSent, confirmationError) = await SendConfirmationEmailAsync(request);
 
 			// Send notification email to admin
-			var notificationSent = await SendNotificationEmailAsync(request);
+			var (notificationSent, notificationError) = await SendNotificationEmailAsync(request);
 
 			if (confirmationSent && notificationSent)
 			{
 				_logger.LogInformation(
-						"Breakfast Club registration successful for {Name} ({Email})",
-						request.Name,
-						request.Email
+					"Breakfast Club registration successful for {Name} ({Email})",
+					request.Name,
+					request.Email
 				);
 
 				return new BreakfastClubResponse
@@ -73,16 +73,18 @@ public class BreakfastClubService : IBreakfastClubService
 			}
 			else
 			{
+				var mailerSendError = confirmationError ?? notificationError;
 				_logger.LogWarning(
-						"Partial email failure for Breakfast Club registration: Confirmation={ConfirmationSent}, Notification={NotificationSent}",
-						confirmationSent,
-						notificationSent
+					"Email failure for Breakfast Club registration: Confirmation={ConfirmationSent}, Notification={NotificationSent}, Detail={Error}",
+					confirmationSent,
+					notificationSent,
+					mailerSendError
 				);
 
 				return new BreakfastClubResponse
 				{
-					Success = true,
-					Message = "Je aanmelding is geregistreerd, maar er was een probleem met de email bevestiging."
+					Success = false,
+					Message = $"Email verzending mislukt: {mailerSendError}"
 				};
 			}
 		}
@@ -97,7 +99,7 @@ public class BreakfastClubService : IBreakfastClubService
 		}
 	}
 
-	private async Task<bool> SendConfirmationEmailAsync(BreakfastClubRequest request)
+	private async Task<(bool Success, string? Error)> SendConfirmationEmailAsync(BreakfastClubRequest request)
 	{
 		try
 		{
@@ -122,7 +124,7 @@ public class BreakfastClubService : IBreakfastClubService
 			};
 
 			var jsonPayload = JsonSerializer.Serialize(emailData);
-			_logger.LogInformation("Sending email payload: {Payload}", jsonPayload);
+			_logger.LogInformation("Sending confirmation email payload: {Payload}", jsonPayload);
 
 			var content = new StringContent(
 				jsonPayload,
@@ -135,7 +137,7 @@ public class BreakfastClubService : IBreakfastClubService
 			if (response.IsSuccessStatusCode)
 			{
 				_logger.LogInformation("Confirmation email sent to {Email}", request.Email);
-				return true;
+				return (true, null);
 			}
 			else
 			{
@@ -146,17 +148,17 @@ public class BreakfastClubService : IBreakfastClubService
 					response.StatusCode,
 					errorContent
 				);
-				return false;
+				return (false, $"[{(int)response.StatusCode}] {errorContent}");
 			}
 		}
 		catch (Exception ex)
 		{
 			_logger.LogError(ex, "Exception sending confirmation email to {Email}", request.Email);
-			return false;
+			return (false, ex.Message);
 		}
 	}
 
-	private async Task<bool> SendNotificationEmailAsync(BreakfastClubRequest request)
+	private async Task<(bool Success, string? Error)> SendNotificationEmailAsync(BreakfastClubRequest request)
 	{
 		try
 		{
@@ -168,22 +170,25 @@ public class BreakfastClubService : IBreakfastClubService
 					name = _mailerSendSettings.FromName
 				},
 				to = new[]
+				{
+					new
 					{
-										new
-										{
-												email = _mailerSendSettings.NotificationEmail,
-												name = "Suikergym Admin"
-										}
-								},
+						email = _mailerSendSettings.NotificationEmail,
+						name = "Suikergym Admin"
+					}
+				},
 				subject = $"🎉 Nieuwe Breakfast Club Aanmelding - {request.Name}",
 				html = BuildNotificationEmailHtml(request),
 				text = BuildNotificationEmailText(request)
 			};
 
+			var jsonPayload = JsonSerializer.Serialize(emailData);
+			_logger.LogInformation("Sending notification email payload: {Payload}", jsonPayload);
+
 			var content = new StringContent(
-					JsonSerializer.Serialize(emailData),
-					Encoding.UTF8,
-					"application/json"
+				jsonPayload,
+				Encoding.UTF8,
+				"application/json"
 			);
 
 			var response = await _httpClient.PostAsync("email", content);
@@ -191,23 +196,23 @@ public class BreakfastClubService : IBreakfastClubService
 			if (response.IsSuccessStatusCode)
 			{
 				_logger.LogInformation("Notification email sent for registration: {Name}", request.Name);
-				return true;
+				return (true, null);
 			}
 			else
 			{
 				var errorContent = await response.Content.ReadAsStringAsync();
 				_logger.LogError(
-						"Failed to send notification email. Status: {StatusCode}, Error: {Error}",
-						response.StatusCode,
-						errorContent
+					"Failed to send notification email. Status: {StatusCode}, Error: {Error}",
+					response.StatusCode,
+					errorContent
 				);
-				return false;
+				return (false, $"[{(int)response.StatusCode}] {errorContent}");
 			}
 		}
 		catch (Exception ex)
 		{
 			_logger.LogError(ex, "Exception sending notification email");
-			return false;
+			return (false, ex.Message);
 		}
 	}
 

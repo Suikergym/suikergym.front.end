@@ -1,5 +1,8 @@
 // API configuration
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://localhost:7074/api';
+// In development: no REACT_APP_API_URL is set, so calls are relative (e.g. /api/...)
+// and always hit whichever port ASP.NET is running on (IIS Express or Kestrel).
+// In production: REACT_APP_API_URL is set to the absolute production URL.
+const API_BASE_URL = process.env.REACT_APP_API_URL ?? '';
 
 /**
  * Submit contact form to the backend API
@@ -8,7 +11,7 @@ const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://localhost:7074/ap
  */
 export const submitContactForm = async (formData) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/contact`, {
+    const response = await fetch(`${API_BASE_URL}/api/contact`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -43,7 +46,7 @@ export const submitContactForm = async (formData) => {
  */
 export const submitBreakfastClubRegistration = async (formData) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/breakfastclub/register`, {
+    const response = await fetch(`${API_BASE_URL}/api/breakfastclub/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -74,7 +77,7 @@ export const submitBreakfastClubRegistration = async (formData) => {
  */
 export const getAllPrograms = async () => {
   try {
-    const response = await fetch(`${API_BASE_URL}/programs`, {
+    const response = await fetch(`${API_BASE_URL}/api/programs`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -100,7 +103,7 @@ export const getAllPrograms = async () => {
  */
 export const getProgramById = async (id) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/programs/${id}`, {
+    const response = await fetch(`${API_BASE_URL}/api/programs/${id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -125,7 +128,7 @@ export const getProgramById = async (id) => {
  */
 export const checkApiHealth = async () => {
   try {
-    const response = await fetch(`${API_BASE_URL}/contact/health`);
+    const response = await fetch(`${API_BASE_URL}/api/contact/health`);
     return await response.json();
   } catch (error) {
     console.error('API health check failed:', error);

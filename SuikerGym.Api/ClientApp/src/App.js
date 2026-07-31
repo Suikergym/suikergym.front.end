@@ -1,6 +1,6 @@
 import "./App.css";
 import React from "react";
-import { Helmet } from "react-helmet";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
@@ -24,6 +24,7 @@ ReactGA.send({
 
 function App() {
   return (
+    <HelmetProvider>
     <div className="App">
       <Helmet>
         <meta charSet="utf-8" />
@@ -42,6 +43,7 @@ function App() {
       </Router>
       <WhatsAppFab />
     </div>
+    </HelmetProvider>
   );
 }
 

@@ -43,7 +43,8 @@ public class BreakfastClubController : ControllerBase
 				});
 			}
 
-			var response = await _breakfastClubService.RegisterInterestAsync(request);
+			var response = await _breakfastClubService
+				.RegisterInterestAsync(request);
 
 			if (response.Success)
 			{

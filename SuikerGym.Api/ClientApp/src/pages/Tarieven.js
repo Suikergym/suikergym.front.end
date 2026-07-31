@@ -1,5 +1,5 @@
 import React from "react";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import "../styles/Tarieven.css";
 import Program from "../components/Program.js";
 import ScrollToTop from "../components/ScrollToTop.js";

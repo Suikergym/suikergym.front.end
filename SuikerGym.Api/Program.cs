@@ -26,13 +26,12 @@ builder.Services.AddCors(options =>
     });
 });
 
-// Register HttpClient for MailerSend
+// Register HttpClient for MailerSend services
 builder.Services.AddHttpClient<IBreakfastClubService, BreakfastClubService>();
+builder.Services.AddHttpClient<IContactService, ContactService>();
 
 // Register services
-builder.Services.AddScoped<IContactService, ContactService>();
 builder.Services.AddScoped<IProgramService, ProgramService>();
-builder.Services.AddScoped<IBreakfastClubService, BreakfastClubService>();
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
@@ -46,16 +45,20 @@ builder.Services.AddSpaStaticFiles(configuration =>
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+app.UseHttpsRedirection();
+
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
     app.UseDeveloperExceptionPage();
-    app.UseHttpsRedirection();
 }
 
 // Static files first
 app.UseStaticFiles();
-app.UseSpaStaticFiles();
+if (!app.Environment.IsDevelopment())
+{
+    app.UseSpaStaticFiles();
+}
 
 app.UseCors("AllowReactApp");
 
