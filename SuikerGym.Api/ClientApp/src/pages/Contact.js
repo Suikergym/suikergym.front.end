@@ -1,10 +1,10 @@
 import React from "react";
 import { Helmet } from "react-helmet-async";
 import "../styles/Contact.css";
-import PhoneIcon from "@material-ui/icons/Phone";
-import LocationIcon from "@material-ui/icons/LocationOn";
-import EmailIcon from "@material-ui/icons/AlternateEmail";
-import AccessTime from "@material-ui/icons/AccessTime";
+import PhoneIcon from "@mui/icons-material/Phone";
+import LocationIcon from "@mui/icons-material/LocationOn";
+import EmailIcon from "@mui/icons-material/AlternateEmail";
+import AccessTime from "@mui/icons-material/AccessTime";
 import { submitContactForm } from "../services/apiService";
 
 function Contact() {

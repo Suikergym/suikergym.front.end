@@ -12,8 +12,6 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import ReactGA from "react-ga4";
 import WhatsAppFab from "./components/WhatsAppFab";
 
-
-
 ReactGA.initialize("G-1R5HPWE4BJ");
 
 ReactGA.send({
@@ -25,24 +23,24 @@ ReactGA.send({
 function App() {
   return (
     <HelmetProvider>
-    <div className="App">
-      <Helmet>
-        <meta charSet="utf-8" />
-        <title>Suikergym - trainen is voor iedereen</title>
-      </Helmet>
-      <Router>
-        <Navbar />
-        <Routes>
-  <Route path="/" element={<Home />} />
-  <Route path="/breakfast-club" element={<BreakfastClub />} />
-  <Route path="/personal-training" element={<PersonalTraining />} />
-  <Route path="/over-suigergym" element={<About />} />
-  <Route path="/kennismaken" element={<Contact />} />
-</Routes>
-        <Footer />
-      </Router>
-      <WhatsAppFab />
-    </div>
+      <div className="App">
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>Suikergym - trainen is voor iedereen</title>
+        </Helmet>
+        <Router>
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/breakfast-club" element={<BreakfastClub />} />
+            <Route path="/personal-training" element={<PersonalTraining />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+          </Routes>
+          <Footer />
+        </Router>
+        <WhatsAppFab />
+      </div>
     </HelmetProvider>
   );
 }
