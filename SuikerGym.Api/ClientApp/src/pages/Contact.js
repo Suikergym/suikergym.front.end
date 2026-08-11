@@ -1,10 +1,12 @@
 import React from "react";
 import { Helmet } from "react-helmet-async";
 import "../styles/Contact.css";
+
 import PhoneIcon from "@mui/icons-material/Phone";
 import LocationIcon from "@mui/icons-material/LocationOn";
 import EmailIcon from "@mui/icons-material/AlternateEmail";
 import AccessTime from "@mui/icons-material/AccessTime";
+
 import { submitContactForm } from "../services/apiService";
 
 function Contact() {
@@ -14,39 +16,43 @@ function Contact() {
   const onSubmit = async (event) => {
     event.preventDefault();
 
-    // Check honeypot field (petname)
     const formData = new FormData(event.target);
+
+    // Honeypot: bots vullen dit veld vaak automatisch in
     if (formData.get("petname") !== "") {
-      // This is likely a bot submission
       return;
     }
 
     setIsSubmitting(true);
-    setResult("Sending....");
+    setResult("");
 
     try {
-      // Prepare data for API
       const contactData = {
-        goal: formData.get("goal"),
+        subject: formData.get("subject"),
         firstname: formData.get("firstname"),
-        lastname: formData.get("lastname"),
         email: formData.get("email"),
         phone: formData.get("phone"),
         message: formData.get("message"),
       };
 
-      // Submit to our backend API
       const response = await submitContactForm(contactData);
 
       if (response.success) {
-        setResult(response.message || "We nemen snel contact op!");
+        setResult(
+          response.message || "Bedankt voor je bericht! Ik neem zo snel mogelijk contact met je op."
+        );
         event.target.reset();
       } else {
-        setResult(response.message || "Er is een fout opgetreden. Probeer het later opnieuw.");
+        setResult(
+          response.message ||
+            "Er is iets misgegaan. Probeer het later opnieuw."
+        );
       }
     } catch (error) {
-      console.error("Error submitting form:", error);
-      setResult("Er is een fout opgetreden. Probeer het later opnieuw.");
+      console.error("Error submitting contact form:", error);
+      setResult(
+        "Er is iets misgegaan. Probeer het later opnieuw."
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -56,27 +62,28 @@ function Contact() {
     <div className="form">
       <Helmet>
         <meta charSet="utf-8" />
-        <title>Suikergym - Contact</title>
+        <title>Contact - Suikergym</title>
+        <meta
+          name="description"
+          content="Heb je een vraag over personal training, de Breakfast Club of Suikergym? Neem vrijblijvend contact op."
+        />
       </Helmet>
-      <title>{(document.title = "Contact - Suikergym")}</title>
 
       <section className="contact">
         <div className="content">
-          <h2>Vraag een gratis kennismaking en proefles aan</h2>
+          <h1>Neem contact op</h1>
+
           <p>
-            Wil je je leven veranderen door af te vallen, sterker te worden en
-            met meer energie en zelfvertrouwen in de wereld te staan? Bij
-            Suikergym geloven we dat trainen voor iedereen is, wat je
-            achtergrond, lichaamsvorm of leeftijd ook is.
+            Heb je een vraag over trainen bij Suikergym, personal training of
+            de Breakfast Club? Stuur me gerust een bericht.
           </p>
+
           <p>
-            Vraag hier vrijblijvend een kennismaking en gratis proefles aan
-            zodat we aan de slag kunnen met jouw doelen. Ik adviseer en motiveer
-            je met schema’s voor in de gym en in de keuken waar jij mee aan de
-            slag kunt. Samen gaan we dus hard werken aan het veranderen van jouw
-            leefstijl!
+            Je kunt het formulier hieronder gebruiken. Liever direct contact?
+            Je kunt me ook bellen of mailen.
           </p>
         </div>
+
         <div className="container">
           <div className="contactInfo">
             <div className="box">
@@ -85,93 +92,107 @@ function Contact() {
                   <PhoneIcon />
                 </div>
               </div>
+
               <div className="text">
                 <h3>Telefoon</h3>
-                <p>+316 515 21 894</p>
+                <a href="tel:+31651521894">+31 6 515 21 894</a>
               </div>
             </div>
+
             <div className="box">
               <div className="icon-background">
                 <div className="icon">
                   <EmailIcon />
                 </div>
               </div>
+
               <div className="text">
-                <h3>Email</h3>
-                <p>info@suikergym.nl</p>
+                <h3>E-mail</h3>
+                <a href="mailto:info@suikergym.nl">
+                  info@suikergym.nl
+                </a>
               </div>
             </div>
+
             <div className="box">
               <div className="icon-background">
                 <div className="icon">
                   <LocationIcon />
                 </div>
               </div>
+
               <div className="text">
-                <h3>Adres</h3>
+                <h3>Locatie</h3>
                 <p>
-                  Peizerweg 295 <br /> 9744BG <br /> Groningen /
+                  Peizerweg 295
+                  <br />
+                  9744 BG Groningen
+                  <br />
+                  Sportpark Hoogkerk
                 </p>
-                <p>Sportpark Hoogkerk</p>
               </div>
             </div>
+
             <div className="box">
               <div className="icon-background">
                 <div className="icon">
                   <AccessTime />
                 </div>
-                
               </div>
-              <div className="text">
-                  <h3>Openingstijden</h3>
-                  <p>Maandag: 7.00-15.00 uur</p>
-                  <p>Woensdag: 7.00-15.00 uur</p>
-                  <p>Woensdag: 18.00-21.00 uur</p>
-                  <p>Vrijdag: 7.00-15.00 uur</p>
 
-                </div>
-            </div>
-          
-          </div>
-          <div className="contactForm">
-            {/* <form
-              action="https://formsubmit.co/485175c148f64ddb9c422a6911c64e11"
-              method="POST"
-            > */}
-            <form onSubmit={onSubmit}>
-              <h2>Neem vrijblijvend contact op</h2>
-              <div className="inputBox">
-                <label>
-                  Programma:&nbsp;
-                  <select name="goal" id="goal">
-                    <option value="kort&krachtig">Kort & krachtig</option>
-                    <option value="core">Core business</option>
-                    <option value="intensief">Intensief en effectief</option>
-                    <option value="duo">Duo training</option>
-                  </select>
-                </label>
+              <div className="text">
+                <h3>Bereikbaar</h3>
+                <p>Maandag: 07:00 – 15:00</p>
+                <p>Woensdag: 07:00 – 15:00</p>
+                <p>Woensdag: 18:00 – 21:00</p>
+                <p>Vrijdag: 07:00 – 15:00</p>
               </div>
+            </div>
+          </div>
+
+          <div className="contactForm">
+            <form onSubmit={onSubmit}>
+              <h2>Waar kan ik je mee helpen?</h2>
+
+              <div className="inputBox">
+                <label htmlFor="subject">Onderwerp</label>
+
+                <select name="subject" id="subject" required>
+                  <option value="">Maak een keuze</option>
+                  <option value="Personal training">
+                    Personal training
+                  </option>
+                  <option value="Breakfast Club">
+                    Breakfast Club
+                  </option>
+                  <option value="Proefles">
+                    Proefles
+                  </option>
+                  <option value="Tarieven">
+                    Tarieven
+                  </option>
+                  <option value="Locatie">
+                    Locatie
+                  </option>
+                  <option value="Overig">
+                    Anders
+                  </option>
+                </select>
+              </div>
+
               <div className="inputBox">
                 <input
                   type="text"
                   id="firstname"
                   name="firstname"
-                  required="required"
+                  required
                   placeholder=" "
+                  autoComplete="given-name"
                 />
                 <span>Voornaam</span>
               </div>
-              <div className="inputBox">
-                <input
-                  type="text"
-                  id="lastname"
-                  name="lastname"
-                  required="required"
-                  placeholder=" "
-                />
-                <span>Achternaam</span>
-              </div>
-              <div className="petname">
+
+              <div className="petname" aria-hidden="true">
                 <input
                   type="text"
                   id="petname"
@@ -182,46 +203,56 @@ function Contact() {
                 />
                 <span>Petname</span>
               </div>
+
               <div className="inputBox">
                 <input
-                  type="text"
+                  type="email"
                   id="email"
                   name="email"
-                  required="required"
+                  required
                   placeholder=" "
+                  autoComplete="email"
                 />
-                <span>Email</span>
+                <span>E-mailadres</span>
               </div>
+
               <div className="inputBox">
                 <input
-                  type="text"
+                  type="tel"
                   id="phone"
                   name="phone"
-                  required="required"
                   placeholder=" "
+                  autoComplete="tel"
                 />
-                <span>Telefoon</span>
+                <span>Telefoonnummer (optioneel)</span>
               </div>
+
               <div className="inputBox">
                 <textarea
                   id="message"
                   name="message"
-                  required="required"
-                  rows="5"
+                  required
+                  rows="6"
                   placeholder=" "
                 ></textarea>
-                <span>Wat is je doel?</span>
+                <span>Je bericht</span>
               </div>
+
               <div className="inputBox">
-                <button 
+                <button
                   type="submit"
                   disabled={isSubmitting}
                 >
-                  {isSubmitting ? "Verzenden..." : "Verstuur"}
+                  {isSubmitting ? "Verzenden..." : "Verstuur bericht"}
                 </button>
               </div>
+
               {result && (
-                <div className="result-message">
+                <div
+                  className="result-message"
+                  role="status"
+                  aria-live="polite"
+                >
                   {result}
                 </div>
               )}
