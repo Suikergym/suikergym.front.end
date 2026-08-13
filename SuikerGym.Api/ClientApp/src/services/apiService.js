@@ -55,6 +55,9 @@ export const submitBreakfastClubRegistration = async (formData) => {
         name: formData.name,
         email: formData.email,
         phone: formData.phone,
+        breakfastChoice: formData.breakfastChoice,
+        smoothieChoice: formData.smoothieChoice,
+        allergies: formData.allergies,
       }),
     });
 

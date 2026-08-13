@@ -1,507 +1,323 @@
 /* =========================================
    CONTACT PAGE
-   ========================================= */
+========================================= */
 
-.contact {
-  position: relative;
-  min-height: 100vh;
-  padding: 7rem 2rem 5rem;
-  background: #f8fafc;
-  overflow: hidden;
+.contact-page {
+  width: 100%;
+  background: #ffffff;
+  color: #171717;
 }
-
-/* Subtiele achtergrond */
-.contact::before {
-  content: "";
-  position: absolute;
-  width: 500px;
-  height: 500px;
-  top: -250px;
-  right: -150px;
-  background: rgba(37, 99, 235, 0.06);
-  border-radius: 50%;
-  pointer-events: none;
-}
-
-.contact::after {
-  content: "";
-  position: absolute;
-  width: 400px;
-  height: 400px;
-  bottom: -200px;
-  left: -150px;
-  background: rgba(37, 99, 235, 0.04);
-  border-radius: 50%;
-  pointer-events: none;
-}
-
 
 /* =========================================
    INTRO
-   ========================================= */
+========================================= */
+
+.contact {
+  padding: 100px 24px 120px;
+}
 
 .contact .content {
-  position: relative;
-  z-index: 1;
-
   max-width: 760px;
-  margin: 0 auto 4rem;
-
+  margin: 0 auto 70px;
   text-align: center;
 }
 
-.contact .content h1 {
-  margin: 0 0 1.25rem;
+.contact .eyebrow {
+  display: inline-block;
+  margin-bottom: 18px;
 
-  font-size: clamp(2.4rem, 5vw, 4rem);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+
+  color: #777;
+}
+
+.contact .content h1 {
+  margin: 0 0 24px;
+
+  font-size: clamp(42px, 6vw, 68px);
   line-height: 1.05;
   font-weight: 800;
-  letter-spacing: -0.04em;
-
-  color: #0f172a;
+  letter-spacing: -0.035em;
 }
 
 .contact .content p {
-  max-width: 680px;
-  margin: 0 auto 0.75rem;
+  max-width: 650px;
+  margin: 0 auto 16px;
 
-  font-size: 1.1rem;
-  line-height: 1.75;
-
-  color: #64748b;
+  font-size: 18px;
+  line-height: 1.7;
+  color: #666;
 }
 
 
 /* =========================================
    MAIN CONTAINER
-   ========================================= */
+========================================= */
 
-.container {
-  position: relative;
-  z-index: 1;
+.contact .container {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(320px, 0.8fr);
+  gap: 60px;
 
-  width: 100%;
   max-width: 1100px;
   margin: 0 auto;
-
-  display: grid;
-  grid-template-columns: 0.85fr 1.15fr;
-  gap: 4rem;
-
   align-items: start;
 }
 
 
 /* =========================================
    CONTACT INFORMATION
-   ========================================= */
+========================================= */
 
-.container .contactInfo {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+.contactInfo {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
 }
 
-.container .contactInfo .box {
+.contactInfo .box {
   display: flex;
-  align-items: center;
-  gap: 1.25rem;
+  gap: 20px;
 
-  padding: 1.25rem;
+  padding: 28px;
 
-  background: #ffffff;
-
-  border: 1px solid #e2e8f0;
-  border-radius: 14px;
-
-  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+  background: #f7f7f7;
+  border: 1px solid #ededed;
+  border-radius: 18px;
 
   transition:
     transform 0.2s ease,
-    box-shadow 0.2s ease,
-    border-color 0.2s ease;
+    box-shadow 0.2s ease;
 }
 
-.container .contactInfo .box:hover {
-  transform: translateY(-2px);
-
-  border-color: #cbd5e1;
-
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+.contactInfo .box:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
 }
 
 
-/* Icon */
+/* =========================================
+   ICONS
+========================================= */
 
-.container .contactInfo .box .icon-background {
-  flex-shrink: 0;
-}
-
-.container .contactInfo .box .icon {
-  width: 52px;
-  height: 52px;
+.icon-background {
+  flex: 0 0 48px;
+  width: 48px;
+  height: 48px;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  background: #eff6ff;
-
-  border-radius: 12px;
+  background: #171717;
+  border-radius: 50%;
 }
 
-.container .contactInfo .box .icon svg {
-  color: #2563eb;
-  font-size: 23px;
-}
-
-
-/* Text */
-
-.container .contactInfo .box .text {
-  min-width: 0;
-
+.icon {
   display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
+  align-items: center;
+  justify-content: center;
+
+  color: #ffffff;
 }
 
-.container .contactInfo .box .text h3 {
-  margin: 0;
+.icon svg {
+  font-size: 22px;
+}
 
-  font-size: 0.9rem;
+
+/* =========================================
+   CONTACT TEXT
+========================================= */
+
+.contactInfo .text {
+  min-width: 0;
+}
+
+.contactInfo .text h3 {
+  margin: 0 0 8px;
+
+  font-size: 17px;
+  line-height: 1.3;
   font-weight: 700;
-
-  color: #0f172a;
 }
 
-.container .contactInfo .box .text p,
-.container .contactInfo .box .text a {
-  margin: 0;
+.contactInfo .text p {
+  margin: 0 0 10px;
 
-  font-size: 0.95rem;
-  line-height: 1.5;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #666;
+}
 
-  color: #64748b;
+.contactInfo .text p:last-child {
+  margin-bottom: 0;
+}
+
+.contactInfo .text strong {
+  color: #222;
+  font-weight: 600;
+}
+
+.contactInfo .text a {
+  display: inline-block;
+  margin-bottom: 6px;
+
+  color: #171717;
+  font-size: 16px;
+  font-weight: 600;
   text-decoration: none;
+
+  transition: opacity 0.2s ease;
 }
 
-.container .contactInfo .box .text a {
-  transition: color 0.2s ease;
-}
-
-.container .contactInfo .box .text a:hover {
-  color: #2563eb;
+.contactInfo .text a:hover {
+  opacity: 0.6;
 }
 
 
 /* =========================================
-   CONTACT FORM
-   ========================================= */
+   CTA
+========================================= */
 
-.contactForm {
-  width: 100%;
+.contact-cta {
+  position: sticky;
+  top: 30px;
 
-  padding: 2.5rem;
+  padding: 42px;
 
-  background: #ffffff;
+  background: #171717;
+  color: #ffffff;
 
-  border: 1px solid #e2e8f0;
-  border-radius: 18px;
-
-  box-shadow: 0 15px 50px rgba(15, 23, 42, 0.08);
+  border-radius: 24px;
 }
 
-.contactForm h2 {
-  margin: 0 0 2rem;
+.contact-cta h2 {
+  margin: 0 0 18px;
 
-  font-size: 1.6rem;
-  line-height: 1.2;
+  font-size: 30px;
+  line-height: 1.15;
   font-weight: 750;
+  letter-spacing: -0.02em;
+}
 
-  color: #0f172a;
+.contact-cta p {
+  margin: 0 0 30px;
+
+  font-size: 16px;
+  line-height: 1.7;
+
+  color: rgba(255, 255, 255, 0.72);
 }
 
 
 /* =========================================
-   FORM FIELDS
-   ========================================= */
+   CTA BUTTON
+========================================= */
 
-.contactForm .inputBox {
-  position: relative;
-  width: 100%;
-  margin-bottom: 1.25rem;
-}
+.contact-cta .btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 
-
-/* Honeypot */
-
-.contactForm .petname {
-  position: absolute;
-  left: -5000px;
-  opacity: 0;
-}
-
-
-/* Inputs */
-
-.contactForm .inputBox input,
-.contactForm .inputBox textarea,
-.contactForm .inputBox select {
-  box-sizing: border-box;
-
-  width: 100%;
-
-  font-family: inherit;
-  font-size: 1rem;
-
-  color: #0f172a;
+  min-height: 52px;
+  padding: 0 24px;
 
   background: #ffffff;
+  color: #171717;
 
-  border: 1px solid #cbd5e1;
-  border-radius: 10px;
+  border-radius: 8px;
 
-  outline: none;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
 
   transition:
-    border-color 0.2s ease,
-    box-shadow 0.2s ease,
+    transform 0.2s ease,
     background 0.2s ease;
 }
 
-.contactForm .inputBox input,
-.contactForm .inputBox select {
-  height: 56px;
-  padding: 0 1rem;
-}
-
-.contactForm .inputBox textarea {
-  min-height: 140px;
-  padding: 1rem;
-
-  resize: vertical;
-}
-
-
-/* Focus */
-
-.contactForm .inputBox input:focus,
-.contactForm .inputBox textarea:focus,
-.contactForm .inputBox select:focus {
-  border-color: #2563eb;
-
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-}
-
-
-/* Select */
-
-.contactForm .inputBox label {
-  display: block;
-
-  margin-bottom: 0.5rem;
-
-  font-size: 0.9rem;
-  font-weight: 600;
-
-  color: #334155;
-}
-
-.contactForm .inputBox select {
-  cursor: pointer;
-}
-
-
-/* =========================================
-   FLOATING LABELS
-   ========================================= */
-
-.contactForm .inputBox span {
-  position: absolute;
-
-  left: 1rem;
-  top: 50%;
-
-  transform: translateY(-50%);
-
-  padding: 0 0.25rem;
-
-  font-size: 1rem;
-
-  color: #94a3b8;
-
-  background: #ffffff;
-
-  pointer-events: none;
-
-  transition:
-    top 0.2s ease,
-    transform 0.2s ease,
-    font-size 0.2s ease,
-    color 0.2s ease;
-}
-
-.contactForm .inputBox textarea ~ span {
-  top: 1rem;
-  transform: none;
-}
-
-
-/* Active input label */
-
-.contactForm .inputBox input:focus ~ span,
-.contactForm .inputBox input:valid ~ span,
-.contactForm .inputBox input:not(:placeholder-shown) ~ span,
-.contactForm .inputBox textarea:focus ~ span,
-.contactForm .inputBox textarea:valid ~ span,
-.contactForm .inputBox textarea:not(:placeholder-shown) ~ span {
-  top: 0;
-
-  transform: translateY(-50%);
-
-  font-size: 0.75rem;
-
-  color: #2563eb;
-}
-
-
-/* =========================================
-   BUTTON
-   ========================================= */
-
-.contactForm button[type="submit"] {
-  width: 100%;
-
-  margin-top: 0.5rem;
-  padding: 1rem 1.5rem;
-
-  border: none;
-  border-radius: 10px;
-
-  background: #2563eb;
-  color: #ffffff;
-
-  font-family: inherit;
-  font-size: 1rem;
-  font-weight: 700;
-
-  cursor: pointer;
-
-  transition:
-    background 0.2s ease,
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
-}
-
-.contactForm button[type="submit"]:hover:not(:disabled) {
-  background: #1d4ed8;
-
-  transform: translateY(-1px);
-
-  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25);
-}
-
-.contactForm button[type="submit"]:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-
-/* =========================================
-   RESULT MESSAGE
-   ========================================= */
-
-.contactForm .result-message {
-  margin-top: 1rem;
-  padding: 1rem;
-
-  border-radius: 10px;
-
-  background: #eff6ff;
-  border: 1px solid #bfdbfe;
-
-  color: #1d4ed8;
-
-  font-size: 0.95rem;
-  line-height: 1.5;
-
-  text-align: center;
+.contact-cta .btn-primary:hover {
+  transform: translateY(-2px);
+  background: #eeeeee;
 }
 
 
 /* =========================================
    TABLET
-   ========================================= */
+========================================= */
 
-@media (max-width: 991px) {
+@media (max-width: 900px) {
   .contact {
-    padding: 5rem 1.5rem 4rem;
+    padding: 80px 24px 90px;
   }
 
-  .container {
+  .contact .container {
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: 40px;
   }
 
-  .contactForm {
-    order: 1;
-  }
-
-  .contactInfo {
-    order: 2;
+  .contact-cta {
+    position: static;
   }
 }
 
 
 /* =========================================
    MOBILE
-   ========================================= */
+========================================= */
 
-@media (max-width: 600px) {
+@media (max-width: 650px) {
   .contact {
-    padding: 4rem 1rem 3rem;
+    padding: 60px 18px 70px;
   }
 
   .contact .content {
-    margin-bottom: 2.5rem;
+    margin-bottom: 45px;
   }
 
   .contact .content h1 {
-    font-size: 2.5rem;
+    font-size: 42px;
   }
 
   .contact .content p {
-    font-size: 1rem;
+    font-size: 16px;
     line-height: 1.65;
   }
 
-  .container {
-    gap: 1.5rem;
+  .contactInfo {
+    grid-template-columns: 1fr;
+    gap: 12px;
   }
 
-  .contactForm {
-    padding: 1.5rem;
-    border-radius: 14px;
+  .contactInfo .box {
+    padding: 22px;
+    gap: 16px;
   }
 
-  .contactForm h2 {
-    font-size: 1.4rem;
-    margin-bottom: 1.5rem;
+  .icon-background {
+    flex-basis: 42px;
+    width: 42px;
+    height: 42px;
   }
 
-  .container .contactInfo .box {
-    padding: 1rem;
-    gap: 1rem;
+  .icon svg {
+    font-size: 19px;
   }
 
-  .container .contactInfo .box .icon {
-    width: 46px;
-    height: 46px;
+  .contact-cta {
+    padding: 30px 24px;
+    border-radius: 20px;
   }
 
-  .container .contactInfo .box .text p,
-  .container .contactInfo .box .text a {
-    font-size: 0.9rem;
+  .contact-cta h2 {
+    font-size: 27px;
+  }
+
+  .contact-cta .btn-primary {
+    width: 100%;
   }
 }

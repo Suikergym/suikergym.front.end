@@ -1,86 +1,37 @@
 import React from "react";
 import { Helmet } from "react-helmet-async";
-import "../styles/Contact.css";
-
 import PhoneIcon from "@mui/icons-material/Phone";
 import LocationIcon from "@mui/icons-material/LocationOn";
 import EmailIcon from "@mui/icons-material/AlternateEmail";
-import AccessTime from "@mui/icons-material/AccessTime";
-
-import { submitContactForm } from "../services/apiService";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import "../styles/Contact.css";
 
 function Contact() {
-  const [result, setResult] = React.useState("");
-  const [isSubmitting, setIsSubmitting] = React.useState(false);
-
-  const onSubmit = async (event) => {
-    event.preventDefault();
-
-    const formData = new FormData(event.target);
-
-    // Honeypot: bots vullen dit veld vaak automatisch in
-    if (formData.get("petname") !== "") {
-      return;
-    }
-
-    setIsSubmitting(true);
-    setResult("");
-
-    try {
-      const contactData = {
-        subject: formData.get("subject"),
-        firstname: formData.get("firstname"),
-        email: formData.get("email"),
-        phone: formData.get("phone"),
-        message: formData.get("message"),
-      };
-
-      const response = await submitContactForm(contactData);
-
-      if (response.success) {
-        setResult(
-          response.message || "Bedankt voor je bericht! Ik neem zo snel mogelijk contact met je op."
-        );
-        event.target.reset();
-      } else {
-        setResult(
-          response.message ||
-            "Er is iets misgegaan. Probeer het later opnieuw."
-        );
-      }
-    } catch (error) {
-      console.error("Error submitting contact form:", error);
-      setResult(
-        "Er is iets misgegaan. Probeer het later opnieuw."
-      );
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
   return (
-    <div className="form">
+    <div className="contact-page">
       <Helmet>
         <meta charSet="utf-8" />
-        <title>Contact - Suikergym</title>
+        <title>Contact - Suikergym Groningen</title>
         <meta
           name="description"
-          content="Heb je een vraag over personal training, de Breakfast Club of Suikergym? Neem vrijblijvend contact op."
+          content="Neem contact op met Suikergym in Groningen. Heb je een vraag over personal training, de Breakfast Club, tarieven of een proefles? Neem gerust contact op."
         />
       </Helmet>
 
       <section className="contact">
         <div className="content">
-          <h1>Neem contact op</h1>
+          <span className="eyebrow">CONTACT</span>
+
+          <h1>Heb je een vraag?</h1>
 
           <p>
-            Heb je een vraag over trainen bij Suikergym, personal training of
-            de Breakfast Club? Stuur me gerust een bericht.
+            Wil je meer weten over personal training, de Breakfast Club,
+            tarieven of trainen bij Suikergym? Neem gerust contact met me op.
           </p>
 
           <p>
-            Je kunt het formulier hieronder gebruiken. Liever direct contact?
-            Je kunt me ook bellen of mailen.
+            Je kunt me bellen, mailen of gewoon even een bericht sturen.
+            Ik help je graag verder.
           </p>
         </div>
 
@@ -95,7 +46,10 @@ function Contact() {
 
               <div className="text">
                 <h3>Telefoon</h3>
-                <a href="tel:+31651521894">+31 6 515 21 894</a>
+                <a href="tel:+31651521894">
+                  +31 6 515 21 894
+                </a>
+                <p>Bel of stuur me een WhatsApp-bericht.</p>
               </div>
             </div>
 
@@ -111,6 +65,7 @@ function Contact() {
                 <a href="mailto:info@suikergym.nl">
                   info@suikergym.nl
                 </a>
+                <p>Voor vragen of meer informatie.</p>
               </div>
             </div>
 
@@ -127,136 +82,56 @@ function Contact() {
                   Peizerweg 295
                   <br />
                   9744 BG Groningen
-                  <br />
-                  Sportpark Hoogkerk
                 </p>
+                <p>Sportpark Hoogkerk</p>
               </div>
             </div>
 
             <div className="box">
               <div className="icon-background">
                 <div className="icon">
-                  <AccessTime />
+                  <AccessTimeIcon />
                 </div>
               </div>
 
               <div className="text">
-                <h3>Bereikbaar</h3>
-                <p>Maandag: 07:00 – 15:00</p>
-                <p>Woensdag: 07:00 – 15:00</p>
-                <p>Woensdag: 18:00 – 21:00</p>
-                <p>Vrijdag: 07:00 – 15:00</p>
+                <h3>Wanneer kun je me bereiken?</h3>
+
+                <p>
+                  <strong>Maandag</strong>
+                  <br />
+                  07:00 – 15:00
+                </p>
+
+                <p>
+                  <strong>Woensdag</strong>
+                  <br />
+                  07:00 – 15:00
+                  <br />
+                  18:00 – 21:00
+                </p>
+
+                <p>
+                  <strong>Vrijdag</strong>
+                  <br />
+                  07:00 – 15:00
+                </p>
               </div>
             </div>
           </div>
 
-          <div className="contactForm">
-            <form onSubmit={onSubmit}>
-              <h2>Waar kan ik je mee helpen?</h2>
+          <div className="contact-cta">
+            <h2>Liever eerst kennismaken?</h2>
 
-              <div className="inputBox">
-                <label htmlFor="subject">Onderwerp</label>
+            <p>
+              Wil je niet alleen een vraag stellen, maar eens ervaren hoe
+              trainen bij Suikergym is? Plan dan een gratis kennismaking en
+              proefles.
+            </p>
 
-                <select name="subject" id="subject" required>
-                  <option value="">Maak een keuze</option>
-                  <option value="Personal training">
-                    Personal training
-                  </option>
-                  <option value="Breakfast Club">
-                    Breakfast Club
-                  </option>
-                  <option value="Proefles">
-                    Proefles
-                  </option>
-                  <option value="Tarieven">
-                    Tarieven
-                  </option>
-                  <option value="Locatie">
-                    Locatie
-                  </option>
-                  <option value="Overig">
-                    Anders
-                  </option>
-                </select>
-              </div>
-
-              <div className="inputBox">
-                <input
-                  type="text"
-                  id="firstname"
-                  name="firstname"
-                  required
-                  placeholder=" "
-                  autoComplete="given-name"
-                />
-                <span>Voornaam</span>
-              </div>
-
-              <div className="petname" aria-hidden="true">
-                <input
-                  type="text"
-                  id="petname"
-                  name="petname"
-                  defaultValue=""
-                  tabIndex="-1"
-                  autoComplete="off"
-                />
-                <span>Petname</span>
-              </div>
-
-              <div className="inputBox">
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  required
-                  placeholder=" "
-                  autoComplete="email"
-                />
-                <span>E-mailadres</span>
-              </div>
-
-              <div className="inputBox">
-                <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  placeholder=" "
-                  autoComplete="tel"
-                />
-                <span>Telefoonnummer (optioneel)</span>
-              </div>
-
-              <div className="inputBox">
-                <textarea
-                  id="message"
-                  name="message"
-                  required
-                  rows="6"
-                  placeholder=" "
-                ></textarea>
-                <span>Je bericht</span>
-              </div>
-
-              <div className="inputBox">
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                >
-                  {isSubmitting ? "Verzenden..." : "Verstuur bericht"}
-                </button>
-              </div>
-
-              {result && (
-                <div
-                  className="result-message"
-                  role="status"
-                  aria-live="polite"
-                >
-                  {result}
-                </div>
-              )}
-            </form>
+            <a href="/contact" className="btn-primary">
+              Plan een gratis proefles
+            </a>
           </div>
         </div>
       </section>
