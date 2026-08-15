@@ -52,7 +52,7 @@ function BreakfastClub() {
       }
     } catch (error) {
       console.error("Error submitting form:", error);
-      setResult("Er is een fout opgetreden. Probeer het later opnieuw.");
+      setResult(error.message || "Er is een fout opgetreden. Probeer het later opnieuw.");
     } finally {
       setIsSubmitting(false);
     }

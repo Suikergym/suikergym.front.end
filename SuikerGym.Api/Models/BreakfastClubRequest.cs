@@ -20,4 +20,10 @@ public class BreakfastClubResponse
 {
 		public bool Success { get; set; }
 		public string Message { get; set; } = string.Empty;
+
+		/// <summary>
+		/// Technical error detail for diagnostics (visible in the browser/network response).
+		/// Null on success.
+		/// </summary>
+		public string? Detail { get; set; }
 }

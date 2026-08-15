@@ -37,6 +37,29 @@ public class BreakfastClubService : IBreakfastClubService
 
 	public async Task<BreakfastClubResponse> RegisterInterestAsync(BreakfastClubRequest request)
 	{
+		// Correlation id ties every log line for this registration together.
+		var registrationId = Guid.NewGuid().ToString("N")[..8];
+		using var logScope = _logger.BeginScope("BreakfastClubRegistration:{RegistrationId}", registrationId);
+
+		_logger.LogInformation(
+			"Received Breakfast Club registration. Name={Name}, Email={Email}, Phone={Phone}, " +
+			"BreakfastChoice={BreakfastChoice}, SmoothieChoice={SmoothieChoice}, Allergies={Allergies}",
+			request.Name,
+			request.Email,
+			request.Phone,
+			string.IsNullOrWhiteSpace(request.BreakfastChoice) ? "(none)" : request.BreakfastChoice,
+			string.IsNullOrWhiteSpace(request.SmoothieChoice) ? "(none)" : request.SmoothieChoice,
+			string.IsNullOrWhiteSpace(request.Allergies) ? "(none)" : request.Allergies
+		);
+
+		_logger.LogInformation(
+			"MailerSend configuration: ApiKey={ApiKeyStatus}, FromEmail={FromEmail}, FromName={FromName}, NotificationEmail={NotificationEmail}",
+			MaskApiKey(_mailerSendSettings.ApiKey),
+			string.IsNullOrWhiteSpace(_mailerSendSettings.FromEmail) ? "(not set)" : _mailerSendSettings.FromEmail,
+			string.IsNullOrWhiteSpace(_mailerSendSettings.FromName) ? "(not set)" : _mailerSendSettings.FromName,
+			string.IsNullOrWhiteSpace(_mailerSendSettings.NotificationEmail) ? "(not set)" : _mailerSendSettings.NotificationEmail
+		);
+
 		try
 		{
 			// Validate request
@@ -44,10 +67,17 @@ public class BreakfastClubService : IBreakfastClubService
 					string.IsNullOrWhiteSpace(request.Email) ||
 					string.IsNullOrWhiteSpace(request.Phone))
 			{
+				_logger.LogWarning(
+					"Validation failed: required field missing. NameEmpty={NameEmpty}, EmailEmpty={EmailEmpty}, PhoneEmpty={PhoneEmpty}",
+					string.IsNullOrWhiteSpace(request.Name),
+					string.IsNullOrWhiteSpace(request.Email),
+					string.IsNullOrWhiteSpace(request.Phone)
+				);
 				return new BreakfastClubResponse
 				{
 					Success = false,
-					Message = "Alle velden zijn verplicht."
+					Message = "Alle velden zijn verplicht.",
+					Detail = $"Validation failed. NameEmpty={string.IsNullOrWhiteSpace(request.Name)}, EmailEmpty={string.IsNullOrWhiteSpace(request.Email)}, PhoneEmpty={string.IsNullOrWhiteSpace(request.Phone)}"
 				};
 			}
 
@@ -63,15 +93,29 @@ public class BreakfastClubService : IBreakfastClubService
 				return new BreakfastClubResponse
 				{
 					Success = false,
-					Message = "Er is een fout opgetreden bij het verwerken van je aanmelding. Probeer het later opnieuw."
+					Message = "Er is een fout opgetreden bij het verwerken van je aanmelding. Probeer het later opnieuw.",
+					Detail = "MailerSend API key is not configured (set 'MailerSend:ApiKey' / env var MailerSend__ApiKey in this environment)."
 				};
 			}
 
 			// Send confirmation email to the user
+			_logger.LogInformation("Attempting to send confirmation email to {Email}", request.Email);
 			var (confirmationSent, confirmationError) = await SendConfirmationEmailAsync(request);
+			_logger.LogInformation(
+				"Confirmation email result for {Email}: Sent={Sent}, Detail={Detail}",
+				request.Email,
+				confirmationSent,
+				confirmationError ?? "(ok)"
+			);
 
 			// Send notification email to admin
+			_logger.LogInformation("Attempting to send notification email to {NotificationEmail}", _mailerSendSettings.NotificationEmail);
 			var (notificationSent, notificationError) = await SendNotificationEmailAsync(request);
+			_logger.LogInformation(
+				"Notification email result: Sent={Sent}, Detail={Detail}",
+				notificationSent,
+				notificationError ?? "(ok)"
+			);
 
 			if (confirmationSent && notificationSent)
 			{
@@ -89,30 +133,52 @@ public class BreakfastClubService : IBreakfastClubService
 			}
 			else
 			{
-				var mailerSendError = confirmationError ?? notificationError;
-				_logger.LogWarning(
-					"Email failure for Breakfast Club registration: Confirmation={ConfirmationSent}, Notification={NotificationSent}, Detail={Error}",
+				_logger.LogError(
+					"Email failure for Breakfast Club registration ({Email}): Confirmation={ConfirmationSent}, Notification={NotificationSent}, ConfirmationError={ConfirmationError}, NotificationError={NotificationError}",
+					request.Email,
 					confirmationSent,
 					notificationSent,
-					mailerSendError
+					confirmationError ?? "(none)",
+					notificationError ?? "(none)"
 				);
 
 				return new BreakfastClubResponse
 				{
 					Success = false,
-					Message = $"Email verzending mislukt: {mailerSendError}"
+					Message = "Email verzending mislukt.",
+					Detail = $"Confirmation: {confirmationError ?? "ok"} | Notification: {notificationError ?? "ok"}"
 				};
 			}
 		}
 		catch (Exception ex)
 		{
-			_logger.LogError(ex, "Error processing Breakfast Club registration for {Email}", request.Email);
+			_logger.LogError(
+				ex,
+				"Unexpected error processing Breakfast Club registration for {Email}. ExceptionType={ExceptionType}, Message={Message}, InnerException={InnerException}",
+				request.Email,
+				ex.GetType().FullName,
+				ex.Message,
+				ex.InnerException?.ToString() ?? "(none)"
+			);
 			return new BreakfastClubResponse
 			{
 				Success = false,
-				Message = "Er is een fout opgetreden bij het verwerken van je aanmelding. Probeer het later opnieuw."
+				Message = "Er is een fout opgetreden bij het verwerken van je aanmelding. Probeer het later opnieuw.",
+				Detail = $"{ex.GetType().Name}: {ex.Message}"
 			};
 		}
+	}
+
+	private static string MaskApiKey(string? apiKey)
+	{
+		if (string.IsNullOrWhiteSpace(apiKey))
+		{
+			return "(NOT SET)";
+		}
+
+		return apiKey.Length <= 8
+			? $"SET ({apiKey.Length} chars)"
+			: $"{apiKey[..4]}...{apiKey[^4..]} ({apiKey.Length} chars)";
 	}
 
 	private async Task<(bool Success, string? Error)> SendConfirmationEmailAsync(BreakfastClubRequest request)

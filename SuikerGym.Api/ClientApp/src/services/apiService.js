@@ -64,7 +64,9 @@ export const submitBreakfastClubRegistration = async (formData) => {
     const data = await response.json();
 
     if (!response.ok) {
-      throw new Error(data.message || 'Er is een fout opgetreden');
+      // Surface the server's technical detail so it is visible in the browser.
+      const detail = data.detail ? ` (${data.detail})` : '';
+      throw new Error(`${data.message || 'Er is een fout opgetreden'}${detail}`);
     }
 
     return data;
