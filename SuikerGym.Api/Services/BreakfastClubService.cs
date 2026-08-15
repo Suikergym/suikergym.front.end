@@ -51,6 +51,22 @@ public class BreakfastClubService : IBreakfastClubService
 				};
 			}
 
+			if (string.IsNullOrWhiteSpace(_mailerSendSettings.ApiKey))
+			{
+				_logger.LogError(
+					"MailerSend API key is not configured. Set 'MailerSend:ApiKey' " +
+					"(e.g. environment variable MailerSend__ApiKey) in this environment. " +
+					"Breakfast Club registration for {Email} could not be processed.",
+					request.Email
+				);
+
+				return new BreakfastClubResponse
+				{
+					Success = false,
+					Message = "Er is een fout opgetreden bij het verwerken van je aanmelding. Probeer het later opnieuw."
+				};
+			}
+
 			// Send confirmation email to the user
 			var (confirmationSent, confirmationError) = await SendConfirmationEmailAsync(request);
 
@@ -141,14 +157,7 @@ public class BreakfastClubService : IBreakfastClubService
 			}
 			else
 			{
-				var errorContent = await response.Content.ReadAsStringAsync();
-				_logger.LogError(
-					"Failed to send confirmation email to {Email}. Status: {StatusCode}, Error: {Error}",
-					request.Email,
-					response.StatusCode,
-					errorContent
-				);
-				return (false, $"[{(int)response.StatusCode}] {errorContent}");
+				return (false, await BuildMailerSendErrorAsync(response, $"confirmation email to {request.Email}"));
 			}
 		}
 		catch (Exception ex)
@@ -200,13 +209,7 @@ public class BreakfastClubService : IBreakfastClubService
 			}
 			else
 			{
-				var errorContent = await response.Content.ReadAsStringAsync();
-				_logger.LogError(
-					"Failed to send notification email. Status: {StatusCode}, Error: {Error}",
-					response.StatusCode,
-					errorContent
-				);
-				return (false, $"[{(int)response.StatusCode}] {errorContent}");
+				return (false, await BuildMailerSendErrorAsync(response, "notification email"));
 			}
 		}
 		catch (Exception ex)
@@ -214,6 +217,55 @@ public class BreakfastClubService : IBreakfastClubService
 			_logger.LogError(ex, "Exception sending notification email");
 			return (false, ex.Message);
 		}
+	}
+
+	private async Task<string> BuildMailerSendErrorAsync(HttpResponseMessage response, string context)
+	{
+		var statusCode = (int)response.StatusCode;
+		var reason = response.ReasonPhrase;
+		var body = await response.Content.ReadAsStringAsync();
+
+		// MailerSend returns a request id header that is very useful when contacting support.
+		var requestId = response.Headers.TryGetValues("x-request-id", out var ids)
+			? string.Join(",", ids)
+			: null;
+
+		// Present on 429 responses (rate limiting).
+		var retryAfter = response.Headers.RetryAfter?.ToString();
+
+		// Try to surface MailerSend's structured "message" / "errors" for a cleaner summary.
+		var summary = body;
+		try
+		{
+			using var doc = JsonDocument.Parse(body);
+			if (doc.RootElement.TryGetProperty("message", out var messageProp))
+			{
+				summary = messageProp.GetString() ?? body;
+			}
+		}
+		catch (JsonException)
+		{
+			// Body was not JSON (e.g. an HTML/proxy error page); keep the raw text.
+		}
+
+		_logger.LogError(
+			"MailerSend request failed for {Context}. Status: {StatusCode} {Reason}. " +
+			"RequestId: {RequestId}. RetryAfter: {RetryAfter}. Body: {Body}",
+			context,
+			statusCode,
+			reason,
+			requestId ?? "(none)",
+			retryAfter ?? "(n/a)",
+			body
+		);
+
+		var detail = $"[{statusCode} {reason}] {summary}";
+		if (!string.IsNullOrEmpty(requestId))
+		{
+			detail += $" (request-id: {requestId})";
+		}
+
+		return detail;
 	}
 
 	private string BuildConfirmationEmailHtml(BreakfastClubRequest request)
