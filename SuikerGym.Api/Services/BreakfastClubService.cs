@@ -360,6 +360,18 @@ www.suikergym.nl
 										<td><a href=""tel:{request.Phone}"">{request.Phone}</a></td>
 								</tr>
 								<tr>
+										<td>Ontbijtkeuze:</td>
+										<td>{(string.IsNullOrWhiteSpace(request.BreakfastChoice) ? "-" : request.BreakfastChoice)}</td>
+								</tr>
+								<tr>
+										<td>Smoothiekeuze:</td>
+										<td>{(string.IsNullOrWhiteSpace(request.SmoothieChoice) ? "-" : request.SmoothieChoice)}</td>
+								</tr>
+								<tr>
+										<td>Allergie&euml;n / opmerkingen:</td>
+										<td>{(string.IsNullOrWhiteSpace(request.Allergies) ? "-" : request.Allergies)}</td>
+								</tr>
+								<tr>
 										<td>Aangemeld op:</td>
 										<td>{DateTime.Now:dd-MM-yyyy HH:mm:ss}</td>
 								</tr>
@@ -382,6 +394,9 @@ Contact Informatie:
 Naam: {request.Name}
 Email: {request.Email}
 Telefoon: {request.Phone}
+Ontbijtkeuze: {(string.IsNullOrWhiteSpace(request.BreakfastChoice) ? "-" : request.BreakfastChoice)}
+Smoothiekeuze: {(string.IsNullOrWhiteSpace(request.SmoothieChoice) ? "-" : request.SmoothieChoice)}
+Allergieen / opmerkingen: {(string.IsNullOrWhiteSpace(request.Allergies) ? "-" : request.Allergies)}
 Aangemeld op: {DateTime.Now:dd-MM-yyyy HH:mm:ss}
 
 ACTIE VEREIST: Neem binnen 48 uur contact op met deze persoon.

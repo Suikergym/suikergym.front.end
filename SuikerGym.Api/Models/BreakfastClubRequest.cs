@@ -8,6 +8,9 @@ public class BreakfastClubRequest
 		public string Name { get; set; } = string.Empty;
 		public string Email { get; set; } = string.Empty;
 		public string Phone { get; set; } = string.Empty;
+		public string BreakfastChoice { get; set; } = string.Empty;
+		public string SmoothieChoice { get; set; } = string.Empty;
+		public string Allergies { get; set; } = string.Empty;
 }
 
 /// <summary>

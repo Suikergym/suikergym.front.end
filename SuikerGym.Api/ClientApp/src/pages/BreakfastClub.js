@@ -15,6 +15,9 @@ function BreakfastClub() {
     name: "",
     email: "",
     phone: "",
+    breakfastChoice: "",
+    smoothieChoice: "",
+    allergies: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [result, setResult] = useState("");
@@ -36,7 +39,14 @@ function BreakfastClub() {
 
       if (response.success) {
         setResult(response.message || "Bedankt voor je interesse! We nemen snel contact met je op.");
-        setFormData({ name: "", email: "", phone: "" });
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          breakfastChoice: "",
+          smoothieChoice: "",
+          allergies: "",
+        });
       } else {
         setResult(response.message || "Er is een fout opgetreden. Probeer het later opnieuw.");
       }
