@@ -1,7 +1,7 @@
 import React from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
-import LaunchBanner from "../components/LaunchBanner";
+// import LaunchBanner from "../components/LaunchBanner";
 import "../styles/Home.css";
 import ScrollToTop from "../components/ScrollToTop";
 
@@ -20,7 +20,7 @@ function Home() {
       </Helmet>
 
       <div className="home-page">
-        <LaunchBanner buttonLink="/breakfast-club#aanmelden" />
+        {/* <LaunchBanner buttonLink="/breakfast-club#aanmelden" /> */}
 
         {/* HERO */}
         <section className="home-hero">

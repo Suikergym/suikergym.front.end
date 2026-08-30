@@ -7,7 +7,7 @@ import OvernightOats from "../assets/overnight-oats.jpg";
 import QuarkGranola from "../assets/quark-granola.jpg";
 import ElzeKuiper from "../assets/ElzeKuiper.jpeg";
 import { Link } from "react-router-dom";
-import LaunchBanner from "../components/LaunchBanner";
+// import LaunchBanner from "../components/LaunchBanner";
 import { submitBreakfastClubRegistration } from "../services/apiService";
 
 function BreakfastClub() {
@@ -70,7 +70,7 @@ function BreakfastClub() {
       </Helmet>
 
       {/* LAUNCH BANNER */}
-      <LaunchBanner />
+      {/* <LaunchBanner /> */}
       {/* HERO */}
       <section className="breakfast-hero">
         <div className="breakfast-hero-content">
@@ -444,20 +444,20 @@ function BreakfastClub() {
             <tbody>
               <tr>
                 <td>1x per week</td>
-                <td className="intro-price">€59</td>
+                <td className="intro-price">€69</td>
                 <td className="regular-price">€79</td>
               </tr>
 
               <tr>
                 <td>2x per week</td>
-                <td className="intro-price">€89</td>
-                <td className="regular-price">€139</td>
+                <td className="intro-price">€129</td>
+                <td className="regular-price">€149</td>
               </tr>
 
               <tr>
                 <td>3x per week</td>
-                <td className="intro-price">€109</td>
-                <td className="regular-price">€179</td>
+                <td className="intro-price">€169</td>
+                <td className="regular-price">€199</td>
               </tr>
             </tbody>
           </table>
